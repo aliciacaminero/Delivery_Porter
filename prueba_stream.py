@@ -44,12 +44,12 @@ def get_inputs():
     inputs['total_outstanding_orders'] = st.sidebar.number_input('Pedidos Pendientes', min_value=0, max_value=100, value=20)
     
     # Densidad y ratio
-    inputs['partner_density'] = st.sidebar.number_input('Densidad de Partners', min_value=0.0, max_value=10.0, value=2.5)
-    inputs['busy_ratio'] = st.sidebar.number_input('Ratio de Ocupación', min_value=0.0, max_value=1.0, value=0.5)
+    #inputs['partner_density'] = st.sidebar.number_input('Densidad de Partners', min_value=0.0, max_value=10.0, value=2.5)
+    #inputs['busy_ratio'] = st.sidebar.number_input('Ratio de Ocupación', min_value=0.0, max_value=1.0, value=0.5)
     
     # Precio promedio y tamaño de pedido
-    inputs['avg_item_price'] = st.sidebar.number_input('Precio Promedio de Artículo', min_value=0.0, max_value=200.0, value=10.0)
-    inputs['order_size'] = st.sidebar.number_input('Tamaño del Pedido', min_value=1, max_value=20, value=5)
+    #inputs['avg_item_price'] = st.sidebar.number_input('Precio Promedio de Artículo', min_value=0.0, max_value=200.0, value=10.0)
+    #inputs['order_size'] = st.sidebar.number_input('Tamaño del Pedido', min_value=1, max_value=20, value=5)
     
     # Día y hora
     inputs['order_day'] = st.sidebar.selectbox('Día del Pedido', [
