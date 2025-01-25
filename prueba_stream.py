@@ -6,17 +6,11 @@ import numpy as np
 
 print(os.getcwd())
 
-# Debug información de carga de modelos
-st.write(f"Ruta actual: {os.getcwd()}")
-
 # Cargar modelos con manejo de errores
 try:
     # Usa joblib.load() para cargar el modelo
     modelo_tiempo_entrega = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
-    st.write("Modelo cargado correctamente")
-    
-    # Verificar tipo del modelo
-    st.write(f"Tipo de modelo: {type(modelo_tiempo_entrega)}")
+    modelo_tiempo_entrega = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
 except Exception as e:
     st.error(f'Error cargando modelo: {e}')
 
