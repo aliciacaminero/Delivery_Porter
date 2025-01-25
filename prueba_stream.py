@@ -11,6 +11,7 @@ try:
     # Usa joblib.load() para cargar el modelo
     modelo_tiempo_entrega = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
     modelo_tiempo_entrega = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
+    
 except Exception as e:
     st.error(f'Error cargando modelo: {e}')
 
@@ -74,10 +75,6 @@ if st.sidebar.button('Predecir Duración de Entrega'):
     try:
         # Obtener inputs
         datos = get_inputs()
-        
-        # Debug de los datos de entrada
-        st.write("Datos de entrada:")
-        st.write(datos)
         
         # Realizar predicción de tiempo de entrega
         prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
