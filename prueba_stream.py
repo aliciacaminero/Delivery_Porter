@@ -59,10 +59,10 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         }])
 
         # Realizar predicción de tiempo de entrega
-        prediccion_tiempo = modelo_tiempo_entrega(datos)
+        prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
 
         # Realizar predicción de repartidores
-        prediccion_repartidores = modelo_calculo_repartidores(datos)
+        prediccion_repartidores = modelo_calculo_repartidores.predict(datos)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
