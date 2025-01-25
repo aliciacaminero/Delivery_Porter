@@ -19,7 +19,7 @@ st.title('Predicción de Tiempo de Entrega 🚚')
 
 # Contenedor principal para parámetros de entrada
 with st.container():
-    st.header('Parámetros de Entrada')
+    #st.header('Parámetros de Entrada')
 
     col1, col2 = st.columns(2)
 
