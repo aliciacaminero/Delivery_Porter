@@ -96,4 +96,4 @@ st.sidebar.markdown("""
 - Este es un ejemplo de una aplicación de Streamlit para predecir el tiempo de entrega de un pedido.
 - Los modelos utilizados fueron entrenados con datos reales y pueden ser usados para predecir 
 el tiempo de entrega de pedidos en tiendas de comida.
-""")
+""") 
