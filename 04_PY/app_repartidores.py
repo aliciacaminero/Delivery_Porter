@@ -60,4 +60,4 @@ total_outstanding_orders = st.number_input("Pedidos pendientes:", min_value=0)
 if st.button("Predecir número de repartidores"):
     predicted_repartidores = predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model)
     repartidor_icon = "🛵"  # Icono de repartidor
-    st.write(f"El número estimado de repartidores necesarios es: {repartidor_icon * predicted_repartidores}")
+    st.write(f"El número estimado de repartidores necesarios es: {predicted_repartidores} - {repartidor_icon * predicted_repartidores}")
