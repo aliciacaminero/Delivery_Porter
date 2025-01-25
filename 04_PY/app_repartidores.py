@@ -5,11 +5,30 @@ import pandas as pd
 # Cargar el modelo
 model = joblib.load("03_PKL/calculo_repartidores.pkl")
 
-# Función para calcular la densidad de repartidores
+# Función para calcular la densidad de repartidores ajustada por tipo de restaurante
 def calculate_partner_density(total_outstanding_orders, order_hour, grouped_category):
-    # Esta es una estimación simple, ya que no sabemos exactamente cómo se calcula la densidad
-    # Puedes mejorar este cálculo según los datos y el modelo entrenado
-    return total_outstanding_orders / (order_hour + 1)  # Ejemplo de cálculo (ajustar según el modelo)
+    # Definir un factor de ajuste por tipo de restaurante
+    adjustment_factors = {
+        "American": 1.2,    # Ejemplo: más pedidos por hora en restaurantes americanos
+        "Asian": 1.1,
+        "Beverages": 0.9,   # Ejemplo: menos pedidos por hora en bebidas
+        "Desserts": 1.0,    # Neutral, no se ajusta
+        "European": 1.3,
+        "Fast Food": 1.4,   # Ejemplo: más pedidos en restaurantes de comida rápida
+        "Healthy": 1.1,
+        "Indian": 1.2,
+        "Italian": 1.0,
+        "Latin": 1.1,
+        "Mediterranean": 1.0,
+        "Mexican": 1.2,
+        "Other": 1.0
+    }
+
+    # Factor de ajuste para el tipo de restaurante
+    adjustment_factor = adjustment_factors.get(grouped_category, 1.0)
+
+    # Ajuste de la densidad de repartidores con base en el tipo de restaurante
+    return total_outstanding_orders / (order_hour + 1) * adjustment_factor  # Ejemplo de ajuste (ajustar según el modelo)
 
 # Función para la predicción
 def predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model):
