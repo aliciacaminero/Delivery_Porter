@@ -18,6 +18,10 @@ def transformar_datos(datos):
     encoder_day = LabelEncoder()
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
+    # Crear 'grouped_category' (esto es solo un ejemplo, deberías ajustarlo según la lógica de tu modelo)
+    # Asumiendo que 'grouped_category' se deriva de 'store_primary_category'
+    datos['grouped_category'] = datos['store_primary_category'].apply(lambda x: x.split()[0])  # Ejemplo ficticio
+
     # Crear otras características faltantes necesarias
     datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
     datos['max_item_price'] = np.random.uniform(10, 100, size=len(datos))  # Ejemplo ficticio
@@ -40,7 +44,7 @@ def transformar_datos(datos):
     expected_columns = [
         'log_delivery_duration', 'is_high_duration', 'total_outstanding_orders',
         'subtotal', 'order_period_encoded', 'num_distinct_items', 'max_item_price', 'total_busy_partners',
-        'order_hour', 'partner_density'
+        'order_hour', 'partner_density', 'grouped_category'
     ]
 
     # Asegurarse de que el DataFrame tenga las columnas correctas en el orden adecuado
