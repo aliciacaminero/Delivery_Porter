@@ -8,6 +8,13 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
 modelo_calculo_repartidores = joblib.load('03_PKL/calculo_repartidores.pkl')
 
+# Suponiendo que estas son las columnas que el modelo espera
+expected_columns = [
+    'store_primary_category', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders',
+    'order_day', 'order_hour', 'partner_density', 'subtotal', 'is_high_duration', 'log_delivery_duration',
+    'max_item_price', 'num_distinct_items', 'order_period_encoded'
+]
+
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
     # Codificación de 'store_primary_category' (suponiendo OneHotEncoding o LabelEncoder)
@@ -30,6 +37,9 @@ def transformar_datos(datos):
 
     # Cálculo de subtotal (puedes modificar esta fórmula según el valor real de los productos)
     datos['subtotal'] = np.random.uniform(10, 100, size=len(datos))  # Asume un valor aleatorio por ahora
+
+    # Asegurarse de que los datos tienen todas las columnas esperadas y en el orden correcto
+    datos = datos[expected_columns]
 
     return datos
 
