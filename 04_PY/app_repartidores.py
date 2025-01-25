@@ -5,12 +5,20 @@ import pandas as pd
 # Cargar el modelo
 model = joblib.load("03_PKL/calculo_repartidores.pkl")
 
+# Función para calcular la densidad de repartidores
+def calculate_partner_density(total_outstanding_orders, order_hour, grouped_category):
+    # Esta es una estimación simple, ya que no sabemos exactamente cómo se calcula la densidad
+    # Puedes mejorar este cálculo según los datos y el modelo entrenado
+    return total_outstanding_orders / (order_hour + 1)  # Ejemplo de cálculo (ajustar según el modelo)
 
 # Función para la predicción
 def predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model):
-    # Crear el dataframe para la predicción
-    example_data = pd.DataFrame([[order_hour, grouped_category, total_outstanding_orders]],
-                                columns=['order_hour', 'grouped_category', 'total_outstanding_orders'])
+    # Calcular partner_density antes de hacer la predicción
+    partner_density = calculate_partner_density(total_outstanding_orders, order_hour, grouped_category)
+    
+    # Crear el dataframe para la predicción con la columna 'partner_density' calculada
+    example_data = pd.DataFrame([[order_hour, grouped_category, total_outstanding_orders, partner_density]],
+                                columns=['order_hour', 'grouped_category', 'total_outstanding_orders', 'partner_density'])
     
     # Predecir el número de repartidores
     repartidores_pred = model.predict(example_data)
