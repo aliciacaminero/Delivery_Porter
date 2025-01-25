@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import joblib as joblib
-import sklearn as sklearn
 import os
 
 modelo = joblib.load(os.path.join('03_PKL', 'm_tiempo_pedido_normal.pkl'))
