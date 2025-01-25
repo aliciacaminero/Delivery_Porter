@@ -2,9 +2,9 @@ import joblib
 import streamlit as st
 import pandas as pd
 
-
 # Cargar el modelo
-model = joblib.load('03_PKL/calculo_repartidores.pkl)
+model = joblib.load("03_PKL/calculo_repartidores.pkl")
+
 
 # Función para la predicción
 def predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model):
