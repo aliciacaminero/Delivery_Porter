@@ -104,7 +104,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             st.metric('Repartidores Disponibles', total_onshift_partners)
             st.metric('Pedidos Pendientes', total_outstanding_orders)
 
-        # Mostrar DataFrame de inputs
+        # Mostrar DataFrame de inputs 
         st.subheader('Detalles del Pedido')
         st.dataframe(datos_transformados)
 
