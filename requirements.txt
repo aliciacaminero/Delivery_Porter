@@ -1,3 +1,6 @@
 joblib
-pandas 
-streamlit 
+pandas
+streamlit
+sklearn
+numpy
+seaborn
