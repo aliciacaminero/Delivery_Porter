@@ -19,8 +19,6 @@ st.title('Predicción de Tiempo de Entrega 🚚')
 
 # Contenedor principal para parámetros de entrada
 with st.container():
-    #st.header('Parámetros de Entrada')
-
     col1, col2 = st.columns(2)
 
     with col1:
@@ -54,8 +52,15 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_hour': order_hour
         }])
 
-        # Realizar predicción
+        # Mostrar datos de entrada para depuración
+        st.write("Datos de entrada:")
+        st.write(datos)
+
+        # Realizar predicción de tiempo de entrega
         prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
+
+        # Realizar predicción de repartidores
+        prediccion_repartidores = modelo_repartidores.predict(datos)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
@@ -65,6 +70,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         with col1:
             st.metric('Duración Estimada', f'{prediccion_tiempo[0]:.2f} minutos')
             st.metric('Categoría de Tienda', store_primary_category)
+            st.metric('Repartidores Estimados', f'{prediccion_repartidores[0]:.0f}')
 
         with col2:
             st.metric('Repartidores Disponibles', total_onshift_partners)
@@ -87,5 +93,6 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
 st.sidebar.markdown("""
 ### Información Adicional
 - Este es un ejemplo de una aplicación de Streamlit para predecir el tiempo de entrega de un pedido.
-- Los modelos utilizados fueron entrenados con datos reales y pueden ser usados para predecir el tiempo de entrega de pedidos en tiendas de comida.
+- Los modelos utilizados fueron entrenados con datos reales y pueden ser usados para predecir 
+el tiempo de entrega de pedidos en tiendas de comida.
 """)
