@@ -4,6 +4,12 @@ import pandas as pd
 import joblib as joblib 
 import numpy as np
 
+import os
+import streamlit as st
+import pandas as pd
+import joblib as joblib 
+import numpy as np
+
 print(os.getcwd())
 
 # Cargar modelos con manejo de errores
