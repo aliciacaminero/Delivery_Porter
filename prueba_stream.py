@@ -31,4 +31,4 @@ if st.button('Predecir Tiempo de Pedido'):
     prediccion = modelo.predict(datos)
     st.success(f'Tiempo estimado: {prediccion[0]:.2f} minutos')
 
-# Ejecutar la app
+# Ejecutar la 
