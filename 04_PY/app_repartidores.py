@@ -42,7 +42,8 @@ def predict_repartidores(order_hour, grouped_category, total_outstanding_orders,
     # Predecir el número de repartidores
     repartidores_pred = model.predict(example_data)
     
-    return repartidores_pred[0]
+    # Redondear el resultado a un número entero
+    return round(repartidores_pred[0])
 
 # Configuración de la aplicación Streamlit
 st.title("Predicción de Repartidores")
@@ -58,4 +59,4 @@ total_outstanding_orders = st.number_input("Pedidos pendientes:", min_value=0)
 # Realizar la predicción
 if st.button("Predecir número de repartidores"):
     predicted_repartidores = predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model)
-    st.write(f"El número estimado de repartidores necesarios es: {predicted_repartidores:.2f}")
+    st.write(f"El número estimado de repartidores necesarios es: {predicted_repartidores}")
