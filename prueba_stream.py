@@ -7,7 +7,7 @@ print(os.getcwd())
 
 # Load the model
 try:
-    modelo = joblib.load('/03_PKL/m_tiempo_pedido_normal.pkl')
+    modelo = os.path.join('/03_PKL/m_tiempo_pedido_normal.pkl')
 except Exception as e:
     st.error(f'Error loading model or encoders: {e}')
 
