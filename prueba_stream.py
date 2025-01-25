@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
 import joblib as joblib
+import os 
 
+print(os.getcwd())
 
-modelo = joblib.load('./m_tiempo_pedido_normal.pkl')
+modelo = joblib.load('/03_PKL/m_tiempo_pedido_normal.pkl')
 
 # Se inicia el título inicial de la app 
 st.title('Predicción de Tiempo de Pedido')
