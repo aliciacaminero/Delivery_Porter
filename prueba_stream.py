@@ -8,6 +8,7 @@ print(os.getcwd())
 # Se carga el modelo y los encoders
 try:
     modelo = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
+    modelo = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
 except Exception as e:
     st.error(f'Error loading model or encoders: {e}')
 
@@ -29,4 +30,3 @@ if st.button('Predecir Tiempo de Pedido'):
     datos = obtener_inputs()
     prediccion = modelo.predict(datos)
     st.success(f'Tiempo estimado: {prediccion[0]:.2f} minutos')
-
