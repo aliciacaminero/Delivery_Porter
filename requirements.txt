@@ -1,4 +1,10 @@
 joblib
 pandas
 streamlit
+<<<<<<< HEAD
 os
+=======
+scikit-learn
+numpy
+seaborn
+>>>>>>> af910e16422c5f986a4404cdffa235f3c3861250
