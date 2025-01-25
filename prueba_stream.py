@@ -6,13 +6,19 @@ import numpy as np
 
 print(os.getcwd())
 
+# Debug información de carga de modelos
+st.write(f"Ruta actual: {os.getcwd()}")
+
 # Cargar modelos con manejo de errores
 try:
+    # Usa joblib.load() para cargar el modelo
     modelo_tiempo_entrega = joblib.load('/03_PKL/m_tiempo_pedido_normal.pkl')
-    modelo_repartidores = joblib.load('/03_PKL/calculo_repartidores.pkl')
-    st.sidebar.success("Modelos cargados correctamente")
+    st.write("Modelo cargado correctamente")
+    
+    # Verificar tipo del modelo
+    st.write(f"Tipo de modelo: {type(modelo_tiempo_entrega)}")
 except Exception as e:
-    st.sidebar.error(f'Error cargando modelos: {e}')
+    st.error(f'Error cargando modelo: {e}')
 
 # Se inicia el título inicial de la app
 st.title('Predicción de Tiempo de Pedido 🚚')
@@ -75,14 +81,12 @@ if st.sidebar.button('Predecir Duración de Entrega'):
         # Obtener inputs
         datos = get_inputs()
         
+        # Debug de los datos de entrada
+        st.write("Datos de entrada:")
+        st.write(datos)
+        
         # Realizar predicción de tiempo de entrega
         prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
-        
-        # Realizar predicción de repartidores (si está disponible)
-        try:
-            prediccion_repartidores = modelo_repartidores.predict(datos)
-        except:
-            prediccion_repartidores = None
         
         # Columnas para mostrar resultados
         col1, col2 = st.columns(2)
@@ -94,10 +98,6 @@ if st.sidebar.button('Predecir Duración de Entrega'):
         with col2:
             st.metric('Total de Artículos', datos['total_items'][0])
             st.metric('Subtotal', f'${datos["subtotal"][0]:.2f}')
-        
-        # Mostrar predicción de repartidores si está disponible
-        if prediccion_repartidores is not None:
-            st.metric('Número Estimado de Repartidores', f'{prediccion_repartidores[0]:.0f}')
         
         # Mostrar DataFrame de inputs
         st.subheader('Detalles del Pedido')
