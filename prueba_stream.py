@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import joblib as joblib
 
 
 modelo = joblib.load('m_tiempo_pedido.normal.pkl')
