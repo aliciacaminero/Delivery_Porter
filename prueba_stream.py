@@ -5,7 +5,7 @@ import joblib as jb
 
 print(os.getcwd())
 
-# Load the model
+# Se carga el modelo y los encoders
 try:
     modelo = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
 except Exception as e:
@@ -30,4 +30,3 @@ if st.button('Predecir Tiempo de Pedido'):
     prediccion = modelo.predict(datos)
     st.success(f'Tiempo estimado: {prediccion[0]:.2f} minutos')
 
-# Ejecutar la 
