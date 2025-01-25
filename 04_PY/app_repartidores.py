@@ -1,15 +1,10 @@
+import joblib
 import streamlit as st
 import pandas as pd
-import numpy as np
-import pickle
-import os
 
-# Cargar el modelo preentrenado desde el archivo .pkl usando una ruta absoluta
-def load_model():
-    model_path = os.path.abspath("03_PKL/calculo_repartidores.pkl")  # Cambia el nombre si es necesario
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
-    return model
+
+# Cargar el modelo
+model = joblib.load('03_PKL/calculo_repartidores.pkl)
 
 # Función para la predicción
 def predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model):
@@ -22,7 +17,7 @@ def predict_repartidores(order_hour, grouped_category, total_outstanding_orders,
     
     return repartidores_pred[0]
 
-# Configuración de la aplicación
+# Configuración de la aplicación Streamlit
 st.title("Predicción de Repartidores")
 st.write("Esta aplicación predice el número de repartidores necesarios según el tipo de restaurante, la hora del pedido y los pedidos pendientes.")
 
@@ -32,9 +27,6 @@ grouped_category = st.selectbox("Selecciona el tipo de restaurante:",
                                ["American", "Asian", "Beverages", "Desserts", "European", "Fast Food", 
                                 "Healthy", "Indian", "Italian", "Latin", "Mediterranean", "Mexican", "Other"])
 total_outstanding_orders = st.number_input("Pedidos pendientes:", min_value=0)
-
-# Cargar el modelo
-model = load_model()
 
 # Realizar la predicción
 if st.button("Predecir número de repartidores"):
