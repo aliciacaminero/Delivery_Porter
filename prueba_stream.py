@@ -25,9 +25,9 @@ def get_inputs():
     inputs = {}
     
     # Categoría de tienda
-    #inputs['store_primary_category'] = st.sidebar.selectbox('Categoría de Tienda', [
-        #'Grocery', 'Restaurant', 'Convenience', 'Pharmacy', 'Other'
-    #])
+    inputs['store_primary_category'] = st.sidebar.selectbox('Categoría de Tienda', [
+        'Grocery', 'Restaurant', 'Convenience', 'Pharmacy', 'Other'
+    ])
     
     # Inputs numéricos
     #inputs['total_items'] = st.sidebar.number_input('Total de Artículos', min_value=1, max_value=50, value=10)
