@@ -52,10 +52,6 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_hour': order_hour
         }])
 
-        # Mostrar datos de entrada para depuración
-        st.write("Datos de entrada:")
-        st.write(datos)
-
         # Realizar predicción de tiempo de entrega
         prediccion_tiempo = modelo_tiempo_entrega(datos)
 
