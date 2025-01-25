@@ -3,7 +3,7 @@ import pandas as pd
 import joblib as joblib
 
 
-modelo = joblib.load('m_tiempo_pedido.normal.pkl')
+modelo = joblib.load('./m_tiempo_pedido_normal.pkl')
 
 # Se inicia el título inicial de la app 
 st.title('Predicción de Tiempo de Pedido')
