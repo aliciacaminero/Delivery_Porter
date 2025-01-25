@@ -47,8 +47,8 @@ with st.container():
 # Botón de predicción en la barra lateral
 if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
-        # Crear DataFrame de entrada
-         datos = pd.DataFrame([{
+        # Crear DataFrame de entrada con todas las columnas requeridas
+        datos = pd.DataFrame([{
             'store_primary_category': store_primary_category,
             'total_items': 1,  # Valor predeterminado
             'subtotal': 0,  # Valor predeterminado
@@ -68,6 +68,10 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_size': 0,  # Valor predeterminado
             'grouped_category': store_primary_category  # Usando el mismo valor
         }])
+
+        # Asegúrate de que las columnas están en el mismo orden que el modelo espera
+        required_features = modelo_tiempo_entrega.feature_names_in_
+        datos = datos.reindex(columns=required_features, fill_value=0)
 
         # Realizar predicción de tiempo de entrega
         prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
@@ -101,7 +105,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
 
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
-
+        
 # Información adicional en la barra lateral
 st.sidebar.markdown("""
 ### Información Adicional
