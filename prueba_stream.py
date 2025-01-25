@@ -14,70 +14,76 @@ try:
 except Exception as e:
     st.error(f'Error cargando modelo: {e}')
 
-# Se inicia el título inicial de la app
-st.title('Predicción de Tiempo de Entrega🚚')
+# Título de la app
+st.title('Predicción de Tiempo de Entrega 🚚')
 
-# Sidebar para inputs
-st.sidebar.header('Parámetros de Entrada')
+# Contenedor principal para parámetros de entrada
+with st.container():
+    st.header('Parámetros de Entrada')
 
-# Función para generar inputs
-def get_inputs():
-    inputs = {}
-    
-    # Categoría de tienda
-    inputs['store_primary_category'] = st.sidebar.selectbox('Categoría de Tienda', [
-        'Italiana', 'Mexicana', 'Fast Food', 'Americana', 'Asiatica', 
-        'Mediterranea', 'India', 'Europea', 'Saludable', 'Bebidas',
-        'Otros', 'Postres' 
-    ])
-    
-    # Partners
-    inputs['total_onshift_partners'] = st.sidebar.number_input('Total Repartidores Disponibles', min_value=1, max_value=50, value=10)
-    inputs['total_busy_partners'] = st.sidebar.number_input('Total Repartidores Asignados', min_value=0, max_value=50, value=5)
-    inputs['total_outstanding_orders'] = st.sidebar.number_input('Pedidos Pendientes', min_value=0, max_value=100, value=20)
-    
-    # Día y hora
-    inputs['order_day'] = st.sidebar.selectbox('Día del Pedido', [
-        'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
-    ])
-    inputs['order_hour'] = st.sidebar.slider('Hora del Pedido', min_value=0, max_value=23, value=12)
-    
-    return pd.DataFrame([inputs])
+    col1, col2 = st.columns(2)
 
-# Botón de predicción
+    with col1:
+        store_primary_category = st.selectbox('Categoría de Tienda', [
+            'Italiana', 'Mexicana', 'Fast Food', 'Americana', 'Asiática', 
+            'Mediterránea', 'India', 'Europea', 'Saludable', 'Bebidas',
+            'Otros', 'Postres'
+        ])
+
+        order_day = st.selectbox('Día del Pedido', [
+            'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
+        ])
+
+        order_hour = st.slider('Hora del Pedido', min_value=0, max_value=23, value=12)
+
+    with col2:
+        total_onshift_partners = st.number_input('Total Repartidores Disponibles', min_value=1, max_value=50, value=10)
+        total_busy_partners = st.number_input('Total Repartidores Asignados', min_value=0, max_value=50, value=5)
+        total_outstanding_orders = st.number_input('Pedidos Pendientes', min_value=0, max_value=100, value=20)
+
+# Botón de predicción en la barra lateral
 if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
-        # Obtener inputs
-        datos = get_inputs()
-        
-        # Realizar predicción de tiempo de entrega
+        # Crear DataFrame de entrada
+        datos = pd.DataFrame([{
+            'store_primary_category': store_primary_category,
+            'total_onshift_partners': total_onshift_partners,
+            'total_busy_partners': total_busy_partners,
+            'total_outstanding_orders': total_outstanding_orders,
+            'order_day': order_day,
+            'order_hour': order_hour
+        }])
+
+        # Realizar predicción
         prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
-        
-        # Columnas para mostrar resultados
+
+        # Mostrar resultados
+        st.subheader('Resultados de la Predicción')
+
         col1, col2 = st.columns(2)
-        
+
         with col1:
             st.metric('Duración Estimada', f'{prediccion_tiempo[0]:.2f} minutos')
-            st.metric('Categoría de Tienda', datos['store_primary_category'][0])
-        
+            st.metric('Categoría de Tienda', store_primary_category)
+
         with col2:
-            st.metric('Total de Artículos', datos['total_items'][0])
-            st.metric('Subtotal', f'${datos["subtotal"][0]:.2f}')
-        
+            st.metric('Repartidores Disponibles', total_onshift_partners)
+            st.metric('Pedidos Pendientes', total_outstanding_orders)
+
         # Mostrar DataFrame de inputs
         st.subheader('Detalles del Pedido')
         st.dataframe(datos)
-        
+
         # Gráfico de distribución simulado
         st.subheader('Distribución de Tiempos de Entrega')
         st.bar_chart(pd.DataFrame({
             'Tiempo de Entrega': np.random.normal(prediccion_tiempo[0], 5, 100)
         }))
-    
+
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
 
-# Información adicional
+# Información adicional en la barra lateral
 st.sidebar.markdown("""
 ### Información Adicional
 - Este es un ejemplo de una aplicación de Streamlit para predecir el tiempo de entrega de un pedido.
