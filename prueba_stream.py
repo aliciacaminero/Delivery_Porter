@@ -1,13 +1,13 @@
 import os
 import streamlit as st
 import pandas as pd
-import joblib
+import joblib as jb
 
 print(os.getcwd())
 
 # Load the model
 try:
-    modelo = os.path.join('/03_PKL/m_tiempo_pedido_normal.pkl')
+    modelo = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
 except Exception as e:
     st.error(f'Error loading model or encoders: {e}')
 
