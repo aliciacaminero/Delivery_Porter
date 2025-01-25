@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import os 
 
 # Cargar el modelo preentrenado desde el archivo .pkl
 @st.cache
 def load_model():
-    with open('calculo_repartidores.pkl', 'rb') as file:
-        model = pickle.load(file)
+    model_path = os.path.abspath("calculo_repartidores.pkl") # Cambia el nombre si es necesario 
+    with open(model_path, 'rb') as file: model = pickle.load(file) 
     return model
 
 # Función para la predicción
