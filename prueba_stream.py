@@ -1,23 +1,31 @@
-import os
-import streamlit as st
 import pandas as pd
-import joblib as joblib 
 import numpy as np
+import streamlit as st
+import joblib
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-print(os.getcwd())
+# Cargar modelos
+modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
+modelo_calculo_repartidores = joblib.load('03_PKL/calculo_repartidores.pkl')
 
-modelo_tiempo_entrega_path = os.path.abspath('03_PKL/m_tiempo_pedido_normal.pkl')
-modelo_calculo_repartidores_path = os.path.abspath('03_PKL/calculo_repartidores.pkl')
+# Función para transformar los datos de entrada
+def transformar_datos(datos):
+    # Codificación de 'store_primary_category' (suponiendo OneHotEncoding o LabelEncoder)
+    encoder_category = LabelEncoder()
+    datos['store_primary_category_encoded'] = encoder_category.fit_transform(datos['store_primary_category'])
+    
+    # Codificación de 'order_day'
+    encoder_day = LabelEncoder()
+    datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
-# Cargar modelos con manejo de errores
-try:
-    if os.path.exists(modelo_tiempo_entrega_path) and os.path.exists(modelo_calculo_repartidores_path):
-        modelo_tiempo_entrega = joblib.load(modelo_tiempo_entrega_path)
-        modelo_calculo_repartidores = joblib.load(modelo_calculo_repartidores_path)
-    else:
-        raise FileNotFoundError("No se encontraron los archivos de modelos en las rutas especificadas.")   
-except Exception as e:
-    st.error(f'Error cargando modelo: {e}')
+    # Crear otras características faltantes
+    datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
+    datos['log_delivery_duration'] = np.log(datos['order_hour'] + 1)  # Ejemplo ficticio
+    datos['max_item_price'] = np.random.uniform(10, 100, size=len(datos))  # Ejemplo
+    datos['num_distinct_items'] = 3  # Solo para ilustración
+    datos['order_period_encoded'] = datos['order_hour'] // 6  # Ficticio, ajusta según tu caso
+
+    return datos
 
 # Título de la app
 st.title('Predicción de Tiempo de Entrega 🚚')
@@ -57,11 +65,14 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_hour': order_hour
         }])
 
+        # Transformar los datos de entrada para que coincidan con lo que espera el modelo
+        datos_transformados = transformar_datos(datos)
+
         # Realizar predicción de tiempo de entrega
-        prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
+        prediccion_tiempo = modelo_tiempo_entrega.predict(datos_transformados)
 
         # Realizar predicción de repartidores
-        prediccion_repartidores = modelo_calculo_repartidores.predict(datos)
+        prediccion_repartidores = modelo_calculo_repartidores.predict(datos_transformados)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
@@ -79,21 +90,13 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
 
         # Mostrar DataFrame de inputs
         st.subheader('Detalles del Pedido')
-        st.dataframe(datos)
+        st.dataframe(datos_transformados)
 
         # Gráfico de distribución simulado
         st.subheader('Distribución de Tiempos de Entrega')
         st.bar_chart(pd.DataFrame({
             'Tiempo de Entrega': np.random.normal(prediccion_tiempo[0], 5, 100)
         }))
-
+        
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
-
-# Información adicional en la barra lateral
-st.sidebar.markdown("""
-### Información Adicional
-- Este es un ejemplo de una aplicación de Streamlit para predecir el tiempo de entrega de un pedido.
-- Los modelos utilizados fueron entrenados con datos reales y pueden ser usados para predecir 
-el tiempo de entrega de pedidos en tiendas de comida.
-""") 
