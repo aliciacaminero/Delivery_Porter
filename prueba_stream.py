@@ -9,7 +9,7 @@ print(os.getcwd())
 # Cargar modelos con manejo de errores
 try:
     modelo_tiempo_entrega = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
-    modelo_tiempo_entrega = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
+    modelo_calculo_repartidores = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
     
 except Exception as e:
     st.error(f'Error cargando modelo: {e}')
@@ -57,10 +57,10 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         st.write(datos)
 
         # Realizar predicción de tiempo de entrega
-        prediccion_tiempo = modelo_tiempo_entrega.predict(datos)
+        prediccion_tiempo = modelo_tiempo_entrega(datos)
 
         # Realizar predicción de repartidores
-        prediccion_repartidores = modelo_repartidores.predict(datos)
+        prediccion_repartidores = modelo_calculo_repartidores(datos)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
