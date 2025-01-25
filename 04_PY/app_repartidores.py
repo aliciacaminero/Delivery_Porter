@@ -6,7 +6,7 @@ import os
 
 # Cargar el modelo preentrenado desde el archivo .pkl usando una ruta absoluta
 def load_model():
-    model_path = os.path.abspath("calculo_repartidores.pkl")  # Cambia el nombre si es necesario
+    model_path = os.path.abspath("03_PKL/calculo_repartidores.pkl")  # Cambia el nombre si es necesario
     with open(model_path, 'rb') as file:
         model = pickle.load(file)
     return model
