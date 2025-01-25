@@ -26,7 +26,9 @@ def get_inputs():
     
     # Categoría de tienda
     inputs['store_primary_category'] = st.sidebar.selectbox('Categoría de Tienda', [
-        'Grocery', 'Restaurant', 'Convenience', 'Pharmacy', 'Other'
+        'Italiana', 'Mexicana', 'Fast Food', 'Americana', 'Asiatica', 
+        'Mediterranea', 'India', 'Europea', 'Saludable', 'Bebidas'
+        'Otros', 'Postres' 
     ])
     
     # Partners
