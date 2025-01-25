@@ -18,12 +18,15 @@ def transformar_datos(datos):
     encoder_day = LabelEncoder()
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
-    # Crear 'grouped_category' (agrupamos las categorías de tienda)
+    # Crear 'grouped_category' (agrupamos las categorías de tienda según su tipo)
     def crear_grouped_category(categoria):
+        # Definir los grupos
         if categoria in ['Fast Food', 'Mexicana', 'Italiana']:
             return 'Comida rápida'
         elif categoria in ['Saludable', 'Mediterránea', 'Asiática']:
             return 'Comida saludable'
+        elif categoria in ['Bebidas', 'Postres']:
+            return 'Bebidas y postres'
         else:
             return 'Otros'
 
