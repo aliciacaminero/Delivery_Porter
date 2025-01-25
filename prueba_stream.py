@@ -25,6 +25,12 @@ def transformar_datos(datos):
     datos['num_distinct_items'] = 3  # Solo para ilustración
     datos['order_period_encoded'] = datos['order_hour'] // 6  # Ficticio, ajusta según tu caso
 
+    # Cálculo de partner_density (densidad de repartidores)
+    datos['partner_density'] = datos['total_onshift_partners'] / (datos['total_outstanding_orders'] + 1)
+
+    # Cálculo de subtotal (puedes modificar esta fórmula según el valor real de los productos)
+    datos['subtotal'] = np.random.uniform(10, 100, size=len(datos))  # Asume un valor aleatorio por ahora
+
     return datos
 
 # Título de la app
