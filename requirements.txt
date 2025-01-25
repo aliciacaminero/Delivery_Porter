@@ -3,5 +3,5 @@ pandas
 streamlit
 os
 scikit-learn
-numpy
+# numpy
 seaborn
