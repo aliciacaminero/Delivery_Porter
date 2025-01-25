@@ -80,7 +80,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
 
 # Información adicional
 st.sidebar.markdown("""
-### 📦 Información del Modelo
-- Basado en múltiples características de pedido
-- Precisión estimada: 85%
+### Información Adicional
+- Este es un ejemplo de una aplicación de Streamlit para predecir el tiempo de entrega de un pedido.
+- Los modelos utilizados fueron entrenados con datos reales y pueden ser usados para predecir el tiempo de entrega de pedidos en tiendas de comida.
 """)
