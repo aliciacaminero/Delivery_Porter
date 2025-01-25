@@ -36,7 +36,7 @@ def get_inputs():
     
     # Día y hora
     inputs['order_day'] = st.sidebar.selectbox('Día del Pedido', [
-        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+        'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
     ])
     inputs['order_hour'] = st.sidebar.slider('Hora del Pedido', min_value=0, max_value=23, value=12)
 
