@@ -2,13 +2,12 @@ import streamlit as st
 import pandas as pd
 import joblib as joblib
 import os
-import sklearn
 
 print(os.getcwd())
 
 # Verificar versiones de las bibliotecas
-st.write(f"scikit-learn version:{sklearn.__version__}")
-st.write(f"joblib version:{sklearn.__version__}")
+# st.write(f"scikit-learn version:{sklearn.__version__}")
+# st.write(f"joblib version:{sklearn.__version__}")
 
 
 # Load the model
