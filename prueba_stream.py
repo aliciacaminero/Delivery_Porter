@@ -18,20 +18,6 @@ def transformar_datos(datos):
     encoder_day = LabelEncoder()
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
-    # Crear 'grouped_category' (agrupamos las categorías de tienda según su tipo)
-    def crear_grouped_category(categoria):
-        # Definir los grupos
-        if categoria in ['Fast Food', 'Mexicana', 'Italiana']:
-            return 'Comida rápida'
-        elif categoria in ['Saludable', 'Mediterránea', 'Asiática']:
-            return 'Comida saludable'
-        elif categoria in ['Bebidas', 'Postres']:
-            return 'Bebidas y postres'
-        else:
-            return 'Otros'
-
-    datos['grouped_category'] = datos['store_primary_category'].apply(crear_grouped_category)
-
     # Crear 'is_high_duration' (por ejemplo, si la hora del pedido es mayor a un umbral)
     datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
 
@@ -55,7 +41,7 @@ def transformar_datos(datos):
     expected_columns = [
         'log_delivery_duration', 'is_high_duration', 'total_outstanding_orders',
         'subtotal', 'order_period_encoded', 'num_distinct_items', 'max_item_price', 'total_busy_partners',
-        'order_hour', 'partner_density', 'grouped_category'
+        'order_hour', 'partner_density'
     ]
 
     # Asegurarse de que el DataFrame tenga las columnas correctas en el orden adecuado
