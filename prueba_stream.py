@@ -6,11 +6,17 @@ import numpy as np
 
 print(os.getcwd())
 
+modelo_tiempo_entrega_path = os.path.abspath('03_PKL/m_tiempo_pedido_normal.pkl')
+modelo_calculo_repartidores_path = os.path.abspath('03_PKL/calculo_repartidores.pkl')
+
 # Cargar modelos con manejo de errores
 try:
-    modelo_tiempo_entrega = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
-    modelo_calculo_repartidores = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
-    
+    if os.path.exists(modelo_tiempo_entrega_path) and os.path.exists(modelo_calculo_repartidores_path):
+        modelo_tiempo_entrega = joblib.load(modelo_tiempo_entrega_path)
+        modelo_calculo_repartidores = joblib.load(modelo_calculo_repartidores_path)
+        st.success("Modelos cargados correctamente.")
+    else:
+        raise FileNotFoundError("No se encontraron los archivos de modelos en las rutas especificadas.")   
 except Exception as e:
     st.error(f'Error cargando modelo: {e}')
 
