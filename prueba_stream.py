@@ -30,8 +30,8 @@ def get_inputs():
     ])
     
     # Partners
-    inputs['total_onshift_partners'] = st.sidebar.number_input('Total de Partners Activos', min_value=1, max_value=50, value=10)
-    inputs['total_busy_partners'] = st.sidebar.number_input('Partners Ocupados', min_value=0, max_value=50, value=5)
+    inputs['total_onshift_partners'] = st.sidebar.number_input('Total Repartidores Disponibles', min_value=1, max_value=50, value=10)
+    inputs['total_busy_partners'] = st.sidebar.number_input('Total Repartidores Asignados', min_value=0, max_value=50, value=5)
     inputs['total_outstanding_orders'] = st.sidebar.number_input('Pedidos Pendientes', min_value=0, max_value=100, value=20)
     
     # Día y hora
