@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib as joblib
 import os
+import scikit_learn as sklearn
 
 print(os.getcwd())
 
