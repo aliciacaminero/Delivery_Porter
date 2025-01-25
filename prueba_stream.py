@@ -8,7 +8,6 @@ print(os.getcwd())
 
 # Cargar modelos con manejo de errores
 try:
-    # Usa joblib.load() para cargar el modelo
     modelo_tiempo_entrega = os.path.abspath('/03_PKL/m_tiempo_pedido_normal.pkl')
     modelo_tiempo_entrega = os.path.abspath('/03_PKL/calculo_repartidores.pkl')
     
