@@ -6,11 +6,6 @@ import scikit_learn as sklearn
 
 print(os.getcwd())
 
-# Verificar versiones de las bibliotecas
-# st.write(f"scikit-learn version:{sklearn.__version__}")
-# st.write(f"joblib version:{sklearn.__version__}")
-
-
 # Load the model
 try:
     modelo = joblib.load('/03_PKL/m_tiempo_pedido_normal.pkl')
