@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import joblib
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 
 # Cargar modelos
 modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
@@ -10,18 +10,18 @@ modelo_calculo_repartidores = joblib.load('03_PKL/calculo_repartidores.pkl')
 
 # Suponiendo que estas son las columnas que el modelo espera
 expected_columns = [
-    'store_primary_category', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders',
-    'order_day', 'order_hour', 'partner_density', 'subtotal', 'is_high_duration', 'log_delivery_duration',
+    'store_primary_category_encoded', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders',
+    'order_day_encoded', 'order_hour', 'partner_density', 'subtotal', 'is_high_duration', 'log_delivery_duration',
     'max_item_price', 'num_distinct_items', 'order_period_encoded'
 ]
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
-    # Codificación de 'store_primary_category' (suponiendo OneHotEncoding o LabelEncoder)
+    # Codificación de 'store_primary_category' con LabelEncoder
     encoder_category = LabelEncoder()
     datos['store_primary_category_encoded'] = encoder_category.fit_transform(datos['store_primary_category'])
     
-    # Codificación de 'order_day'
+    # Codificación de 'order_day' con LabelEncoder
     encoder_day = LabelEncoder()
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
