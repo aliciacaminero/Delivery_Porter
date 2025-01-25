@@ -1,8 +1,7 @@
+import os
 import streamlit as st
 import pandas as pd
-import joblib as joblib
-import os
-import sklearn as sklearn
+import joblib
 
 print(os.getcwd())
 
