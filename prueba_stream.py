@@ -15,7 +15,7 @@ except Exception as e:
     st.error(f'Error cargando modelo: {e}')
 
 # Se inicia el título inicial de la app
-st.title('Predicción de Tiempo de Pedido 🚚')
+st.title('Predicción de Tiempo de Entrega🚚')
 
 # Sidebar para inputs
 st.sidebar.header('Parámetros de Entrada')
@@ -25,18 +25,18 @@ def get_inputs():
     inputs = {}
     
     # Categoría de tienda
-    inputs['store_primary_category'] = st.sidebar.selectbox('Categoría de Tienda', [
-        'Grocery', 'Restaurant', 'Convenience', 'Pharmacy', 'Other'
-    ])
+    #inputs['store_primary_category'] = st.sidebar.selectbox('Categoría de Tienda', [
+        #'Grocery', 'Restaurant', 'Convenience', 'Pharmacy', 'Other'
+    #])
     
     # Inputs numéricos
-    inputs['total_items'] = st.sidebar.number_input('Total de Artículos', min_value=1, max_value=50, value=10)
-    inputs['subtotal'] = st.sidebar.number_input('Subtotal', min_value=0.0, max_value=500.0, value=50.0)
-    inputs['num_distinct_items'] = st.sidebar.number_input('Número de Artículos Distintos', min_value=1, max_value=20, value=5)
+    #inputs['total_items'] = st.sidebar.number_input('Total de Artículos', min_value=1, max_value=50, value=10)
+    #inputs['subtotal'] = st.sidebar.number_input('Subtotal', min_value=0.0, max_value=500.0, value=50.0)
+    #inputs['num_distinct_items'] = st.sidebar.number_input('Número de Artículos Distintos', min_value=1, max_value=20, value=5)
     
     # Precios
-    inputs['min_item_price'] = st.sidebar.number_input('Precio Mínimo de Artículo', min_value=0.0, max_value=100.0, value=1.0)
-    inputs['max_item_price'] = st.sidebar.number_input('Precio Máximo de Artículo', min_value=0.0, max_value=500.0, value=50.0)
+    #inputs['min_item_price'] = st.sidebar.number_input('Precio Mínimo de Artículo', min_value=0.0, max_value=100.0, value=1.0)
+    #inputs['max_item_price'] = st.sidebar.number_input('Precio Máximo de Artículo', min_value=0.0, max_value=500.0, value=50.0)
     
     # Partners
     inputs['total_onshift_partners'] = st.sidebar.number_input('Total de Partners Activos', min_value=1, max_value=50, value=10)
@@ -70,7 +70,7 @@ def get_inputs():
     return pd.DataFrame([inputs])
 
 # Botón de predicción
-if st.sidebar.button('Predecir Duración de Entrega'):
+if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
         # Obtener inputs
         datos = get_inputs()
