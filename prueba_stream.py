@@ -25,7 +25,6 @@ else:
 
 # Cargar modelos
 modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
-modelo_calculo_repartidores = joblib.load('s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl')
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
