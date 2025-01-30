@@ -15,7 +15,11 @@ response = requests.get(url_modelo)
 # Verificar que la descarga fue exitosa
 if response.status_code == 200:
     # Cargar el modelo directamente desde el contenido en memoria
-    modelo_calculo_repartidores = joblib.load(BytesIO(response.content))
+    try:
+        modelo_calculo_repartidores = joblib.load(BytesIO(response.content))
+        st.success('Modelo cargado correctamente.')
+    except Exception as e:
+        st.error(f'Error al cargar el modelo: {e}')
 else:
     st.error('No se pudo cargar el modelo desde la URL proporcionada.')
 
