@@ -18,9 +18,13 @@ def transformar_datos(datos):
     encoder_day = LabelEncoder()
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
-    # Crear otras características faltantes necesarias
-    # Usamos la hora del pedido para crear la columna 'order_period_encoded' (esto es solo un ejemplo)
-    datos['order_period_encoded'] = datos['order_hour'] // 6  # Ejemplo ficticio
+    # Crear 'is_high_duration' (por ejemplo, si la hora del pedido es mayor a un umbral)
+    datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
+
+    # Crear 'log_delivery_duration' y 'delivery_duration' (ejemplo ficticio)
+    # Supongamos que delivery_duration se calcula de alguna manera, como la duración del pedido
+    datos['delivery_duration'] = datos['order_hour'] + np.random.randint(10, 30, size=len(datos))  # Ficticio
+    datos['log_delivery_duration'] = np.log(datos['delivery_duration'])  # Logaritmo de la duración
 
     # Cálculo de partner_density (densidad de repartidores)
     datos['partner_density'] = datos['total_onshift_partners'] / (datos['total_outstanding_orders'] + 1)
@@ -28,20 +32,14 @@ def transformar_datos(datos):
     # Cálculo de subtotal (puedes modificar esta fórmula según el valor real de los productos)
     datos['subtotal'] = np.random.uniform(10, 100, size=len(datos))  # Asume un valor aleatorio por ahora
 
-    # Cálculo de 'is_high_duration' (por ejemplo, si la duración del pedido es mayor que un umbral)
-    datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
-
-    # Asumiendo que 'delivery_duration' se calcula en base a la diferencia entre la hora del pedido y la entrega (esto es solo un ejemplo)
-    datos['delivery_duration'] = datos['order_hour'] + np.random.randint(10, 30, size=len(datos))  # Ficticio, ajusta según tus datos
-    datos['log_delivery_duration'] = np.log(datos['delivery_duration'])  # Calcular el logaritmo de la duración
-
-    # Asumiendo que 'max_item_price' y 'num_distinct_items' son generados de alguna manera
-    datos['max_item_price'] = np.random.uniform(10, 100, size=len(datos))  # Ejemplo
-    datos['num_distinct_items'] = np.random.randint(1, 5, size=len(datos))  # Ejemplo
+    # Crear otras características faltantes necesarias
+    datos['order_period_encoded'] = datos['order_hour'] // 6  # Ficticio, ajusta según tu caso
+    datos['max_item_price'] = np.random.uniform(10, 100, size=len(datos))  # Ficticio
+    datos['num_distinct_items'] = 3  # Solo para ilustración
 
     # Asegurarse de que los datos tengan las columnas correctas y en el orden correcto
     expected_columns = [
-        'delivery_duration', 'log_delivery_duration', 'is_high_duration', 'total_outstanding_orders',
+        'log_delivery_duration', 'is_high_duration', 'total_outstanding_orders',
         'subtotal', 'order_period_encoded', 'num_distinct_items', 'max_item_price', 'total_busy_partners',
         'order_hour', 'partner_density'
     ]
