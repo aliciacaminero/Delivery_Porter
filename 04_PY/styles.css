@@ -1,0 +1,47 @@
+/* styles.css */
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para los botones */
+.stButton>button {
+    background-color: #ff6600;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.stButton>button:hover {
+    background-color: #e65c00;
+}
+
+/* Estilos para los inputs */
+.stSelectbox, .stSlider, .stNumberInput {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Título principal */
+h1 {
+    color: #ff6600;
+    text-align: center;
+}
+
+/* Subtítulos */
+h2, h3 {
+    color: #333;
+    text-align: center;
+}
+
+/* Contenedor principal */
+div.block-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
