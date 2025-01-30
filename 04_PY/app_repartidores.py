@@ -5,6 +5,24 @@ import pandas as pd
 # Cargar el modelo
 model = joblib.load("03_PKL/calculo_repartidores.pkl")
 
+
+# Establecer configuración de la página
+st.set_page_config(page_title="Predicción de Repartidores", page_icon="🛵", layout="centered")
+
+# Cargar el archivo CSS externo
+def load_css(file_name):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Llamar la función para aplicar estilos
+load_css("styles.css")
+
+# Agregar una imagen de cabecera
+st.image("https://source.unsplash.com/1200x400/?delivery", use_column_width=True)
+
+
+
+
 # Función para calcular la densidad de repartidores ajustada por tipo de restaurante
 def calculate_partner_density(total_outstanding_orders, order_hour, grouped_category):
     # Definir un factor de ajuste por tipo de restaurante
@@ -34,14 +52,14 @@ def calculate_partner_density(total_outstanding_orders, order_hour, grouped_cate
 def predict_repartidores(order_hour, grouped_category, total_outstanding_orders, model):
     # Calcular partner_density antes de hacer la predicción
     partner_density = calculate_partner_density(total_outstanding_orders, order_hour, grouped_category)
-    
+
     # Crear el dataframe para la predicción con la columna 'partner_density' calculada
     example_data = pd.DataFrame([[order_hour, grouped_category, total_outstanding_orders, partner_density]],
                                 columns=['order_hour', 'grouped_category', 'total_outstanding_orders', 'partner_density'])
-    
+
     # Predecir el número de repartidores
     repartidores_pred = model.predict(example_data)
-    
+
     # Redondear el resultado a un número entero
     return round(repartidores_pred[0])
 
@@ -51,8 +69,8 @@ st.write("Esta aplicación predice el número de repartidores necesarios según 
 
 # Inputs de usuario
 order_hour = st.slider("Hora del pedido (0-23):", min_value=0, max_value=23)
-grouped_category = st.selectbox("Selecciona el tipo de restaurante:", 
-                               ["American", "Asian", "Beverages", "Desserts", "European", "Fast Food", 
+grouped_category = st.selectbox("Selecciona el tipo de restaurante:",
+                               ["American", "Asian", "Beverages", "Desserts", "European", "Fast Food",
                                 "Healthy", "Indian", "Italian", "Latin", "Mediterranean", "Mexican", "Other"])
 total_outstanding_orders = st.number_input("Pedidos pendientes:", min_value=0)
 

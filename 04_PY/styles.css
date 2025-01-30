@@ -7,7 +7,7 @@ body {
 
 /* Estilos para los botones */
 .stButton>button {
-    background-color: #ff6600;
+    background-color: #0041f5;
     color: white;
     border-radius: 10px;
     padding: 10px 20px;
@@ -17,7 +17,7 @@ body {
 }
 
 .stButton>button:hover {
-    background-color: #e65c00;
+    background-color: #0041f5;
 }
 
 /* Estilos para los inputs */
@@ -30,7 +30,7 @@ body {
 
 /* Título principal */
 h1 {
-    color: #ff6600;
+    color: #0041f5;
     text-align: center;
 }
 
