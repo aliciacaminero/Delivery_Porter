@@ -2,7 +2,22 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import joblib
+import requests
 from sklearn.preprocessing import LabelEncoder
+from io import BytesIO
+
+# URL del archivo del modelo
+url_modelo = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
+
+# Descargar el archivo
+response = requests.get(url_modelo)
+
+# Verificar que la descarga fue exitosa
+if response.status_code == 200:
+    # Cargar el modelo directamente desde el contenido en memoria
+    modelo_calculo_repartidores = joblib.load(BytesIO(response.content))
+else:
+    st.error('No se pudo cargar el modelo desde la URL proporcionada.')
 
 # Cargar modelos
 modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
