@@ -112,6 +112,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             ])
 
         # Usar el pipeline completo para la predicción
+        # Asegurarse de que los datos son un DataFrame antes de pasarlos al ColumnTransformer
         datos_transformados = preprocesador.fit_transform(datos_transformados)
 
         # Usar el pipeline para hacer la predicción
