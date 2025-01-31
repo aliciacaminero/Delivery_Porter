@@ -4,7 +4,7 @@ import joblib
 import requests
 from io import BytesIO
 import streamlit as st
-from sklearn.preprocessing import LabelEncoder
+from sklearn.pipeline import Pipeline
 
 # URL del archivo del modelo de tiempo de entrega
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
@@ -13,7 +13,8 @@ url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_
 response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
 if response_tiempo_entrega.status_code == 200:
     try:
-        modelo_tiempo_entrega = joblib.load(BytesIO(response_tiempo_entrega.content))
+        # Cargar el modelo entrenado (pipeline completo)
+        mejor_modelo = joblib.load(BytesIO(response_tiempo_entrega.content))
         st.success('Modelo de tiempo de entrega cargado correctamente.')
     except Exception as e:
         st.error(f'Error al cargar el modelo de tiempo de entrega: {e}')
@@ -49,39 +50,11 @@ day_map = {
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
-    # Mantener las columnas originales sin transformarlas directamente
-    datos['original_order_day'] = datos['order_day']
-    datos['original_grouped_category'] = datos['grouped_category']
-    
     # Mapear los valores de 'grouped_category' y 'order_day' a español
     datos['grouped_category'] = datos['grouped_category'].map(category_map)
     datos['order_day'] = datos['order_day'].map(day_map)
     
-    # Codificación de 'grouped_category' con LabelEncoder
-    encoder_category = LabelEncoder()
-    datos['grouped_category_encoded'] = encoder_category.fit_transform(datos['grouped_category'])
-    
-    # Codificación de 'order_day' con LabelEncoder
-    encoder_day = LabelEncoder()
-    datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
-
-    # Crear 'delivery_duration' (en segundos)
-    datos['delivery_duration'] = datos['order_hour'] * 60 + np.random.randint(10, 60, size=len(datos))  # Simulación en segundos
-
-    # Transformar 'delivery_duration' a minutos y segundos
-    datos['delivery_duration_min'] = datos['delivery_duration'] // 60  # Minutos
-    datos['delivery_duration_sec'] = datos['delivery_duration'] % 60  # Segundos
-
-    # Asegurarse de que los datos tengan las columnas correctas y en el orden correcto
-    expected_columns = [
-        'original_order_day', 'original_grouped_category', 'order_hour', 
-        'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders', 
-        'delivery_duration_min', 'delivery_duration_sec'
-    ]
-
-    # Asegurarse de que el DataFrame tenga las columnas correctas en el orden adecuado
-    datos = datos[expected_columns]
-
+    # Asegurarnos de que las columnas estén presentes para el modelo
     return datos
 
 # Título de la app
@@ -122,11 +95,11 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_hour': order_hour
         }])
 
-        # Transformar los datos de entrada para que coincidan con lo que espera el modelo
+        # Transformar los datos de entrada
         datos_transformados = transformar_datos(datos)
 
-        # Realizar predicción de tiempo de entrega
-        prediccion_tiempo = modelo_tiempo_entrega.predict(datos_transformados)
+        # Usar el pipeline completo para la predicción
+        prediccion_tiempo = mejor_modelo.predict(datos_transformados)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
@@ -135,7 +108,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
 
         with col1:
             # Mostrar duración del pedido en formato "minutos:segundos"
-            st.metric('Duración Estimada', f'{datos_transformados["delivery_duration_min"][0]} minutos {datos_transformados["delivery_duration_sec"][0]} segundos')
+            st.metric('Duración Estimada', f'{prediccion_tiempo[0] // 60} minutos {int(prediccion_tiempo[0] % 60)} segundos')
 
         with col2:
             st.metric('Repartidores Disponibles', total_onshift_partners)
