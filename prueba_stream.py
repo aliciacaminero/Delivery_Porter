@@ -20,8 +20,39 @@ if response_tiempo_entrega.status_code == 200:
 else:
     st.error('No se pudo cargar el modelo de tiempo de entrega desde la URL proporcionada.')
 
+# Diccionario de mapeo de valores en inglés a español para 'grouped_category'
+category_map = {
+    'Italian': 'Italiana',
+    'Mexican': 'Mexicana',
+    'Fast Food': 'Comida Rápida',
+    'American': 'Americana',
+    'Asian': 'Asiática',
+    'Mediterranean': 'Mediterránea',
+    'Indian': 'India',
+    'European': 'Europea',
+    'Healthy': 'Saludable',
+    'Drinks': 'Bebidas',
+    'Other': 'Otros',
+    'Desserts': 'Postres'
+}
+
+# Diccionario de mapeo de valores en inglés a español para 'order_day'
+day_map = {
+    'Monday': 'Lunes',
+    'Tuesday': 'Martes',
+    'Wednesday': 'Miércoles',
+    'Thursday': 'Jueves',
+    'Friday': 'Viernes',
+    'Saturday': 'Sábado',
+    'Sunday': 'Domingo'
+}
+
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
+    # Mapear los valores de 'grouped_category' y 'order_day' a español
+    datos['grouped_category'] = datos['grouped_category'].map(category_map)
+    datos['order_day'] = datos['order_day'].map(day_map)
+    
     # Codificación de 'grouped_category' con LabelEncoder
     encoder_category = LabelEncoder()
     datos['grouped_category_encoded'] = encoder_category.fit_transform(datos['grouped_category'])
@@ -40,7 +71,9 @@ def transformar_datos(datos):
 
     # Asegurarse de que los datos tengan las columnas correctas y en el orden correcto
     expected_columns = [
-        'order_hour', 'grouped_category_encoded', 'order_day_encoded', 'delivery_duration_min', 'delivery_duration_sec'
+        'order_day_encoded', 'grouped_category_encoded', 'order_hour', 
+        'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders', 
+        'delivery_duration_min', 'delivery_duration_sec'
     ]
 
     # Asegurarse de que el DataFrame tenga las columnas correctas en el orden adecuado
@@ -57,7 +90,7 @@ with st.container():
 
     with col1:
         store_primary_category = st.selectbox('Categoría de Tienda', [
-            'Italiana', 'Mexicana', 'Fast Food', 'Americana', 'Asiática', 
+            'Italiana', 'Mexicana', 'Comida Rápida', 'Americana', 'Asiática', 
             'Mediterránea', 'India', 'Europea', 'Saludable', 'Bebidas',
             'Otros', 'Postres'
         ])
