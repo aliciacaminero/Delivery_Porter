@@ -6,11 +6,10 @@ from io import BytesIO
 import streamlit as st
 from sklearn.preprocessing import LabelEncoder
 
-# URL del archivo del modelo
+# URL del archivo del modelo de tiempo de entrega
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
-url_modelo_calculo_repartidores = '03_PKL/calculo_repartidores.pkl'
 
-# Descargar el modelo de tiempo de entrega
+# Descargar el archivo del modelo de tiempo de entrega
 response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
 if response_tiempo_entrega.status_code == 200:
     try:
@@ -20,17 +19,6 @@ if response_tiempo_entrega.status_code == 200:
         st.error(f'Error al cargar el modelo de tiempo de entrega: {e}')
 else:
     st.error('No se pudo cargar el modelo de tiempo de entrega desde la URL proporcionada.')
-
-# Descargar el modelo de cálculo de repartidores
-response_calculo_repartidores = requests.get(url_modelo_calculo_repartidores)
-if response_calculo_repartidores.status_code == 200:
-    try:
-        modelo_calculo_repartidores = joblib.load(BytesIO(response_calculo_repartidores.content))
-        st.success('Modelo de cálculo de repartidores cargado correctamente.')
-    except Exception as e:
-        st.error(f'Error al cargar el modelo de cálculo de repartidores: {e}')
-else:
-    st.error('No se pudo cargar el modelo de cálculo de repartidores desde la URL proporcionada.')
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
@@ -43,7 +31,7 @@ def transformar_datos(datos):
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
     # Crear 'delivery_duration' (en segundos)
-    # Como ejemplo simple, basamos la duración en la hora del pedido multiplicada por un valor aleatorio (esto depende de tu modelo real)
+    # Para este ejemplo, la duración depende de la hora y otras variables, se simula una duración basada en estos datos
     datos['delivery_duration'] = datos['order_hour'] * 60 + np.random.randint(10, 60, size=len(datos))  # Simulación en segundos
 
     # Transformar 'delivery_duration' a minutos y segundos
@@ -104,9 +92,6 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Realizar predicción de tiempo de entrega
         prediccion_tiempo = modelo_tiempo_entrega.predict(datos_transformados)
 
-        # Realizar predicción de repartidores
-        prediccion_repartidores = modelo_calculo_repartidores.predict(datos_transformados)
-
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
 
@@ -115,8 +100,6 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         with col1:
             # Mostrar duración del pedido en formato "minutos:segundos"
             st.metric('Duración Estimada', f'{datos_transformados["delivery_duration_min"][0]} minutos {datos_transformados["delivery_duration_sec"][0]} segundos')
-            st.metric('Categoría de Tienda', store_primary_category)
-            st.metric('Repartidores Estimados', f'{prediccion_repartidores[0]:.0f}')
 
         with col2:
             st.metric('Repartidores Disponibles', total_onshift_partners)
@@ -125,12 +108,6 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Mostrar DataFrame de inputs
         st.subheader('Detalles del Pedido')
         st.dataframe(datos_transformados)
-
-        # Gráfico de distribución simulado
-        st.subheader('Distribución de Tiempos de Entrega')
-        st.bar_chart(pd.DataFrame({
-            'Tiempo de Entrega': np.random.normal(prediccion_tiempo[0], 5, 100)
-        }))
         
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
