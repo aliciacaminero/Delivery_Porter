@@ -4,7 +4,6 @@ import joblib
 import requests
 from io import BytesIO
 import streamlit as st
-from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
@@ -111,8 +110,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
                 ('num', 'passthrough', ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders'])  # Pasar columnas numéricas sin cambio
             ])
 
-        # Usar el pipeline completo para la predicción
-        # Asegurarse de que los datos son un DataFrame antes de pasarlos al ColumnTransformer
+        # Asegurarse de que los datos sean un DataFrame antes de pasarlos al ColumnTransformer
         datos_transformados = preprocesador.fit_transform(datos_transformados)
 
         # Usar el pipeline para hacer la predicción
