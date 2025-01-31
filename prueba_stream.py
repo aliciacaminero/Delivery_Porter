@@ -112,7 +112,10 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             ])
 
         # Usar el pipeline completo para la predicción
-        prediccion_tiempo = mejor_modelo.predict(preprocesador.fit_transform(datos_transformados))
+        datos_transformados = preprocesador.fit_transform(datos_transformados)
+
+        # Usar el pipeline para hacer la predicción
+        prediccion_tiempo = mejor_modelo.predict(datos_transformados)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
