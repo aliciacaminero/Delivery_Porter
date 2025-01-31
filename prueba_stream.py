@@ -49,6 +49,10 @@ day_map = {
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
+    # Mantener las columnas originales sin transformarlas directamente
+    datos['original_order_day'] = datos['order_day']
+    datos['original_grouped_category'] = datos['grouped_category']
+    
     # Mapear los valores de 'grouped_category' y 'order_day' a español
     datos['grouped_category'] = datos['grouped_category'].map(category_map)
     datos['order_day'] = datos['order_day'].map(day_map)
@@ -62,7 +66,6 @@ def transformar_datos(datos):
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
     # Crear 'delivery_duration' (en segundos)
-    # Para este ejemplo, la duración depende de la hora y otras variables, se simula una duración basada en estos datos
     datos['delivery_duration'] = datos['order_hour'] * 60 + np.random.randint(10, 60, size=len(datos))  # Simulación en segundos
 
     # Transformar 'delivery_duration' a minutos y segundos
@@ -71,7 +74,7 @@ def transformar_datos(datos):
 
     # Asegurarse de que los datos tengan las columnas correctas y en el orden correcto
     expected_columns = [
-        'order_day_encoded', 'grouped_category_encoded', 'order_hour', 
+        'original_order_day', 'original_grouped_category', 'order_hour', 
         'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders', 
         'delivery_duration_min', 'delivery_duration_sec'
     ]
