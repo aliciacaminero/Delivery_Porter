@@ -5,6 +5,8 @@ import requests
 from io import BytesIO
 import streamlit as st
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
 # URL del archivo del modelo de tiempo de entrega
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
@@ -102,8 +104,15 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Transformar los datos de entrada
         datos_transformados = transformar_datos(datos)
 
+        # Crear un ColumnTransformer para manejar OneHotEncoding con 'handle_unknown="ignore"'
+        preprocesador = ColumnTransformer(
+            transformers=[
+                ('cat', OneHotEncoder(handle_unknown='ignore'), ['grouped_category', 'order_day']),  # Codificación one-hot con manejo de categorías desconocidas
+                ('num', 'passthrough', ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders'])  # Pasar columnas numéricas sin cambio
+            ])
+
         # Usar el pipeline completo para la predicción
-        prediccion_tiempo = mejor_modelo.predict(datos_transformados)
+        prediccion_tiempo = mejor_modelo.predict(preprocesador.fit_transform(datos_transformados))
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
