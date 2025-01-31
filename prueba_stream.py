@@ -50,9 +50,13 @@ day_map = {
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
+    # Rellenar los valores NaN en las columnas categóricas con un valor predeterminado
+    datos['grouped_category'] = datos['grouped_category'].fillna('Desconocido')
+    datos['order_day'] = datos['order_day'].fillna('Desconocido')
+    
     # Mapear los valores de 'grouped_category' y 'order_day' a español
-    datos['grouped_category'] = datos['grouped_category'].map(category_map)
-    datos['order_day'] = datos['order_day'].map(day_map)
+    datos['grouped_category'] = datos['grouped_category'].map(category_map).fillna('Desconocido')
+    datos['order_day'] = datos['order_day'].map(day_map).fillna('Desconocido')
     
     # Asegurarnos de que las columnas estén presentes para el modelo
     return datos
