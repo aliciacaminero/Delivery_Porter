@@ -7,21 +7,30 @@ import streamlit as st
 from sklearn.preprocessing import LabelEncoder
 
 # URL del archivo del modelo
-url_modelo = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
+url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
+url_modelo_calculo_repartidores = '03_PKL/calculo_repartidores.pkl'
 
-# Descargar el archivo
-response = requests.get(url_modelo)
-
-# Verificar que la descarga fue exitosa
-if response.status_code == 200:
-    # Cargar el modelo directamente desde el contenido en memoria
+# Descargar el modelo de tiempo de entrega
+response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
+if response_tiempo_entrega.status_code == 200:
     try:
-        modelo_calculo_repartidores = joblib.load(BytesIO(response.content))
-        st.success('Modelo cargado correctamente.')
+        modelo_tiempo_entrega = joblib.load(BytesIO(response_tiempo_entrega.content))
+        st.success('Modelo de tiempo de entrega cargado correctamente.')
     except Exception as e:
-        st.error(f'Error al cargar el modelo: {e}')
+        st.error(f'Error al cargar el modelo de tiempo de entrega: {e}')
 else:
-    st.error('No se pudo cargar el modelo desde la URL proporcionada.')
+    st.error('No se pudo cargar el modelo de tiempo de entrega desde la URL proporcionada.')
+
+# Descargar el modelo de cálculo de repartidores
+response_calculo_repartidores = requests.get(url_modelo_calculo_repartidores)
+if response_calculo_repartidores.status_code == 200:
+    try:
+        modelo_calculo_repartidores = joblib.load(BytesIO(response_calculo_repartidores.content))
+        st.success('Modelo de cálculo de repartidores cargado correctamente.')
+    except Exception as e:
+        st.error(f'Error al cargar el modelo de cálculo de repartidores: {e}')
+else:
+    st.error('No se pudo cargar el modelo de cálculo de repartidores desde la URL proporcionada.')
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
