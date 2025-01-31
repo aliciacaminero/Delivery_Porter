@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-import streamlit as st
 import joblib
 import requests
-from sklearn.preprocessing import LabelEncoder
 from io import BytesIO
+import streamlit as st
+from sklearn.preprocessing import LabelEncoder
 
 # URL del archivo del modelo
 url_modelo = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
@@ -23,43 +23,27 @@ if response.status_code == 200:
 else:
     st.error('No se pudo cargar el modelo desde la URL proporcionada.')
 
-# Cargar modelos
-modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
-
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
-    # Codificación de 'store_primary_category' con LabelEncoder
+    # Codificación de 'grouped_category' con LabelEncoder
     encoder_category = LabelEncoder()
-    datos['store_primary_category_encoded'] = encoder_category.fit_transform(datos['store_primary_category'])
+    datos['grouped_category_encoded'] = encoder_category.fit_transform(datos['grouped_category'])
     
     # Codificación de 'order_day' con LabelEncoder
     encoder_day = LabelEncoder()
     datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
 
-    # Crear 'is_high_duration' (por ejemplo, si la hora del pedido es mayor a un umbral)
-    datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
+    # Crear 'delivery_duration' (en segundos)
+    # Como ejemplo simple, basamos la duración en la hora del pedido multiplicada por un valor aleatorio (esto depende de tu modelo real)
+    datos['delivery_duration'] = datos['order_hour'] * 60 + np.random.randint(10, 60, size=len(datos))  # Simulación en segundos
 
-    # Crear 'log_delivery_duration' y 'delivery_duration' (ejemplo ficticio)
-    # Supongamos que delivery_duration se calcula de alguna manera, como la duración del pedido
-    datos['delivery_duration'] = datos['order_hour'] + np.random.randint(10, 30, size=len(datos))  # Ficticio
-    datos['log_delivery_duration'] = np.log(datos['delivery_duration'])  # Logaritmo de la duración
-
-    # Cálculo de partner_density (densidad de repartidores)
-    datos['partner_density'] = datos['total_onshift_partners'] / (datos['total_outstanding_orders'] + 1)
-
-    # Cálculo de subtotal (puedes modificar esta fórmula según el valor real de los productos)
-    datos['subtotal'] = np.random.uniform(10, 100, size=len(datos))  # Asume un valor aleatorio por ahora
-
-    # Crear otras características faltantes necesarias
-    datos['order_period_encoded'] = datos['order_hour'] // 6  # Ficticio, ajusta según tu caso
-    datos['max_item_price'] = np.random.uniform(10, 100, size=len(datos))  # Ficticio
-    datos['num_distinct_items'] = 3  # Solo para ilustración
+    # Transformar 'delivery_duration' a minutos y segundos
+    datos['delivery_duration_min'] = datos['delivery_duration'] // 60  # Minutos
+    datos['delivery_duration_sec'] = datos['delivery_duration'] % 60  # Segundos
 
     # Asegurarse de que los datos tengan las columnas correctas y en el orden correcto
     expected_columns = [
-        'log_delivery_duration', 'is_high_duration', 'total_outstanding_orders',
-        'subtotal', 'order_period_encoded', 'num_distinct_items', 'max_item_price', 'total_busy_partners',
-        'order_hour', 'partner_density'
+        'order_hour', 'grouped_category_encoded', 'order_day_encoded', 'delivery_duration_min', 'delivery_duration_sec'
     ]
 
     # Asegurarse de que el DataFrame tenga las columnas correctas en el orden adecuado
@@ -97,7 +81,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
         # Crear DataFrame de entrada
         datos = pd.DataFrame([{
-            'store_primary_category': store_primary_category,
+            'grouped_category': store_primary_category,
             'total_onshift_partners': total_onshift_partners,
             'total_busy_partners': total_busy_partners,
             'total_outstanding_orders': total_outstanding_orders,
@@ -120,7 +104,8 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         col1, col2 = st.columns(2)
 
         with col1:
-            st.metric('Duración Estimada', f'{prediccion_tiempo[0]:.2f} minutos')
+            # Mostrar duración del pedido en formato "minutos:segundos"
+            st.metric('Duración Estimada', f'{datos_transformados["delivery_duration_min"][0]} minutos {datos_transformados["delivery_duration_sec"][0]} segundos')
             st.metric('Categoría de Tienda', store_primary_category)
             st.metric('Repartidores Estimados', f'{prediccion_repartidores[0]:.0f}')
 
