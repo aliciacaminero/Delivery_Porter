@@ -69,7 +69,6 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
     color: #0041f5 !important;
     font-weight: bold !important;
-    background: transparent !important; /* Elimina el fondo azul */
 }
 
 /* 🔹 Estilo del thumb (punto del slider) */
