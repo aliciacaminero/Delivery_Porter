@@ -71,10 +71,21 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > d
     font-weight: bold !important;
 }
 
-/* 🔹 Estilo del thumb (punto del slider) */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
-    background-color: #0041f5 !important;
-    box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
+
+  div.stSlider > div[data-baseweb="slider"] > div > div {
+    background: linear-gradient(to right, rgb(1, 183, 158) 0%, rgb(1, 183, 158) var(--NB, 0%) , rgba(151, 166, 195, 0.25) var(--NB, 0%) , rgba(151, 166, 195, 0.25) 100%);
+}
+
+
+/* Estilo para el control deslizante (thumb) dentro de block-container */
+div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;   /* Eliminar estilo predeterminado del thumb */
+    appearance: none !important;            /* Asegurarnos que el estilo predeterminado del thumb no se aplique */
+    width: 16px;                 /* Tamaño del control deslizante */
+    height: 16px;                /* Tamaño del control deslizante */
+    border-radius: 50%;          /* Redondear el control deslizante */
+    background-color: #0041f5 !important;   /* Color azul para el thumb */
+    cursor: pointer;            /* Hacer el cursor de puntero en el thumb */
 }
 
 /* 🔹 Ocultar líneas de valores del slider */
