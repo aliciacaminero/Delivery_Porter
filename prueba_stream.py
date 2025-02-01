@@ -6,9 +6,20 @@ from io import BytesIO
 import streamlit as st
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+import os
 
 # URL del archivo del modelo de tiempo de entrega
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
+
+
+# Cargar el archivo CSS externo
+def load_css(file_name):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Llamar la función para aplicar estilos
+load_css(os.path.abspath("styles.css"))
+
 
 # Descargar el archivo del modelo de tiempo de entrega
 response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
@@ -25,7 +36,7 @@ else:
 # Diccionarios de mapeo
 category_map = {
     'Italian': 'Italiana',
-    'Mexican': 'Mexicana', 
+    'Mexican': 'Mexicana',
     'Fast Food': 'Comida Rápida',
     'American': 'Americana',
     'Asian': 'Asiática',
@@ -56,11 +67,11 @@ def transformar_datos(datos):
     # Convertir categorías de español a inglés para el modelo
     datos['grouped_category'] = datos['grouped_category'].map(reverse_category_map)
     datos['order_day'] = datos['order_day'].map(reverse_day_map)
-    
+
     # Asegurarse de que todas las columnas necesarias estén presentes
     columnas_numericas = ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders']
     columnas_categoricas = ['grouped_category', 'order_day']
-    
+
     return datos[columnas_numericas + columnas_categoricas]
 
 # Título de la app
