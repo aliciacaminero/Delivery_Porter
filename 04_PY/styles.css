@@ -90,13 +90,13 @@ div.block-container .stSlider input[type="range"] {
 }
 
 /* Estilo para el control deslizante (thumb) dentro de block-container */
-div.block-container .stSlider input[type="range"]::-webkit-slider-thumb {
+div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;   /* Eliminar estilo predeterminado del thumb */
     appearance: none !important;            /* Asegurarnos que el estilo predeterminado del thumb no se aplique */
     width: 16px;                 /* Tamaño del control deslizante */
     height: 16px;                /* Tamaño del control deslizante */
     border-radius: 50%;          /* Redondear el control deslizante */
-    background-color: #0041f5;   /* Color azul para el thumb */
+    background-color: #0041f5 !important;   /* Color azul para el thumb */
     cursor: pointer;            /* Hacer el cursor de puntero en el thumb */
 }
 
