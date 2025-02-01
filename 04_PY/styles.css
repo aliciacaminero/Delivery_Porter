@@ -67,7 +67,7 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
 }
 
-/* 🔹 Color del valor numérico del slider - corregido */
+/* 🔹 Color del valor numérico flotante del slider */
 div.block-container .stSlider [data-baseweb="slider"] [role="slider"] + div {
     background: none !important;
     border: none !important;
@@ -78,6 +78,26 @@ div.block-container .stSlider [data-baseweb="slider"] [role="slider"] + div > di
     background: transparent !important;
     border: none !important;
     font-weight: bold !important;
+}
+
+/* 🔹 Números de la escala del slider (0 y 23) */
+div.block-container .stSlider [data-testid="stTickBar"] {
+    color: #0041f5 !important;
+}
+
+div.block-container .stSlider [data-testid="stTickBar"] > div {
+    background: none !important;
+    color: #0041f5 !important;
+    font-weight: bold !important;
+}
+
+/* 🔹 Valor actual del slider (número naranja) */
+div.block-container .stSlider [data-baseweb="slider"] {
+    color: #0041f5 !important;
+}
+
+div.block-container .stSlider [data-baseweb="slider"] [role="slider"] {
+    color: #0041f5 !important;
 }
 
 /* 🔹 Estilo del thumb (punto del slider) */
