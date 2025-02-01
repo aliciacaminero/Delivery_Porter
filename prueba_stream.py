@@ -105,7 +105,7 @@ st.markdown("""
         font-weight: bold !important;
     }
     </style>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True) 
 
 # Contenedor principal para parámetros de entrada
 with st.container():
