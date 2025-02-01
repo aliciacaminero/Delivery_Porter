@@ -62,13 +62,14 @@ div.block-container .stSelectbox select {
 
 /* 🔹 Estilos para el slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
-    background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 50%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
+    background-color: #0041f5 !important; /* Azul sólido */
 }
 
 /* 🔹 Color del valor numérico del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
     color: #0041f5 !important;
     font-weight: bold !important;
+    background: transparent !important; /* Elimina el fondo azul */
 }
 
 /* 🔹 Estilo del thumb (punto del slider) */
