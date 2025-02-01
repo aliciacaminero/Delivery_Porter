@@ -90,7 +90,6 @@ st.title('Predicción de Tiempo de Entrega')
 # Contenedor principal para parámetros de entrada
 with st.container():
     col1, col2 = st.columns(2)
-
     with col1:
         store_primary_category = st.selectbox('Categoría de Tienda', [
             'Italiana', 'Mexicana', 'Comida Rápida', 'Americana', 'Asiática',
