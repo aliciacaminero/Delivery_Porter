@@ -93,7 +93,6 @@ div.block-container .stSlider input[type="range"] {
 div.block-container .st-emotion-cache-1dj3ksd {
     background-color: #0041f5 !important; /* Azul */
     border: none !important; /* Elimina el borde rojo */
-    /*background: linear-gradient(to right, #0041f5 0%, #0041f5 52.1739%, rgba(151, 166, 195, 0.25) 52.1739%, rgba(151, 166, 195, 0.25) 100%);*/
   }
 
 /* Estilos para el slider */
@@ -103,7 +102,9 @@ div[role="slider"][aria-label="Hora del pedido (0-23):"] > div[data-testid="stSl
   }
 
   div.stSlider > div[data-baseweb="slider"] > div > div {
-    background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 0%) );
+    background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 0%), rgba(151, 166, 195, 0.25) var(--NB, 0%) , rgba(151, 166, 195, 0.25) 100%);
+    background-size: var(--NB, 0%) 100%; /* Tamaño del degradado dinámico */
+    background-repeat: no-repeat; /* Evitar que el degradado se repita */
   }
 
 
