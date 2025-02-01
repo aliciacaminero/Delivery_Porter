@@ -1,12 +1,4 @@
 /* styles.css */
-
-header {
-    background-image: url("04_Imagenes/CABECERA.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 200px;
-}
-
 body {
     background-color: #f4f4f4;
     color: #333;
