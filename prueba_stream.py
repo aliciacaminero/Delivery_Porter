@@ -18,7 +18,7 @@ def load_css(file_name):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Llamar la función para aplicar estilos
-load_css(os.path.abspath("styles.css"))
+load_css(os.path.abspath("./styles.css"))
 
 
 # Descargar el archivo del modelo de tiempo de entrega
