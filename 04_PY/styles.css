@@ -1,4 +1,4 @@
-/* 🔹 Estilo para el contenedor principal */
+/* 🔹 Estilos base */
 div.block-container {
     padding: 20px;
     background-color: #f4f4f4;
@@ -25,33 +25,7 @@ div.block-container .stButton>button:hover {
     border: 2px solid #0041f5;
 }
 
-div.block-container .stButton>button:focus {
-    outline: none;
-}
-
-/* 🔹 Inputs y select dentro del contenedor */
-div.block-container .stSelectbox,
-div.block-container .stSlider,
-div.block-container .stNumberInput {
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-/* 🔹 Estilos para títulos */
-div.block-container h1 {
-    color: #0041f5;
-    text-align: center;
-}
-
-div.block-container h2,
-div.block-container h3 {
-    color: #333;
-    text-align: center;
-}
-
-/* 🔹 Estilo para el selectbox y sus opciones */
+/* 🔹 Selectbox y bordes */
 div.block-container .stSelectbox > div > div {
     border-color: #0041f5 !important;
 }
@@ -62,41 +36,47 @@ div.block-container .stSelectbox > div > div:focus {
     box-shadow: 0 0 0 1px #0041f5 !important;
 }
 
-/* 🔹 Estilos para el slider principal */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
+/* 🔹 Estilos específicos del Slider */
+/* Barra del slider */
+div.block-container .stSlider > div > div > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
 }
 
-/* 🔹 Estilo para el número actual del slider (el 0) */
-div.block-container .stSlider [data-baseweb="slider"] div[role="slider"] {
+/* Eliminar fondo naranja del número */
+div.block-container .stSlider div[data-baseweb="slider"] div[role="slider"] div {
+    background-color: transparent !important;
+    background: none !important;
     color: #0041f5 !important;
 }
 
-div.block-container .stSlider [data-baseweb="slider"] div[role="slider"]::after {
-    content: attr(aria-valuenow);
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #0041f5 !important;
-    background: transparent !important;
-    border: none !important;
-    font-weight: bold !important;
-}
-
-/* 🔹 Estilo para los números de la escala (0 y 23) */
-div.block-container .stSlider [data-testid="stTickBar"] div {
+/* Eliminar sombreado y cambiar color de los números de la escala */
+div.block-container .stSlider div[data-baseweb="slider"] div[data-testid="stTickBar"] {
     color: #666666 !important;
     background: none !important;
-    font-weight: normal !important;
 }
 
-/* 🔹 Eliminar sombreado azul del slider */
-div.block-container .stSlider [data-baseweb="slider"] div[role="slider"] + div {
-    display: none !important;
+div.block-container .stSlider div[data-baseweb="slider"] div[data-testid="stTickBar"] div {
+    background: none !important;
+    color: #666666 !important;
 }
 
-/* 🔹 Estilo del punto del slider */
+/* Estilo para el valor actual (número flotante) */
+div.block-container .stSlider [data-baseweb="tooltip"] {
+    background: transparent !important;
+    color: #0041f5 !important;
+}
+
+/* Eliminar cualquier fondo o sombreado residual */
+div.block-container .stSlider [data-baseweb="slider"] [role="slider"] + div,
+div.block-container .stSlider [data-baseweb="slider"] [role="slider"] div,
+div.block-container .stSlider [data-baseweb="popover"],
+div.block-container .stSlider [data-baseweb="tooltip"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Estilo del punto del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
