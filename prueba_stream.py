@@ -14,9 +14,9 @@ try:
     response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
     if response_tiempo_entrega.status_code == 200:
         try:
-            # Intentar cargar el modelo directamente como un array numpy
+            # Intentar cargar el modelo con joblib
             modelo_datos = BytesIO(response_tiempo_entrega.content)
-            mejor_modelo = np.load(modelo_datos, allow_pickle=True)
+            mejor_modelo = joblib.load(modelo_datos)  # Cargar correctamente el modelo
             st.success('Modelo de tiempo de entrega cargado correctamente.')
         except Exception as e:
             st.error(f'Error al cargar el modelo: {str(e)}')
@@ -116,20 +116,21 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Preparar características
         X = preparar_caracteristicas(datos_entrada)
         
-        # Realizar predicción
+        # Verificar si el modelo es válido antes de predecir
         if isinstance(mejor_modelo, np.ndarray):
-            # Si es un array de coeficientes, usar producto punto
-            prediccion_tiempo = np.dot(X, mejor_modelo)
-        else:
-            # Si es un modelo sklearn, usar predict
+            st.error("El modelo cargado no es un modelo de scikit-learn válido.")
+        elif hasattr(mejor_modelo, "predict"):
+            # Realizar predicción
             prediccion_tiempo = mejor_modelo.predict(X)[0]
-        
-        # Mostrar resultados
-        st.subheader('Resultados de la Predicción')
-        
-        # Convertir el tiempo a minutos y redondear al minuto más cercano
-        minutos = max(1, round(float(prediccion_tiempo) / 60))
-        st.metric('Tiempo Estimado de Entrega', f'{minutos} minutos')
+
+            # Convertir el tiempo a minutos y redondear al minuto más cercano
+            minutos = max(1, round(float(prediccion_tiempo) / 60))
+
+            # Mostrar resultados
+            st.subheader('Resultados de la Predicción')
+            st.metric('Tiempo Estimado de Entrega', f'{minutos} minutos')
+        else:
+            st.error("El objeto cargado no es un modelo de scikit-learn.")
             
     except Exception as e:
         st.error(f'Error al procesar los datos: {str(e)}')
