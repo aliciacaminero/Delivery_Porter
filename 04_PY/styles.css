@@ -81,3 +81,7 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[rol
 div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
     background: transparent !important;
 }
+
+.st-av.st-aw.st-ax.st-ay.st-az.st-b0.st-bg.st-ch.st-cx.st-bz.st-cj.st-c5.st-c6.st-c7.st-c8.st-c9.st-c3.st-ca.st-cb.st-cc.st-ck.st-cd.st-ce.st-ah.st-aj.st-ai {
+    background-color: #0041f5 !important; /* Azul */
+  }
