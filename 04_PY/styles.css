@@ -42,7 +42,7 @@ div.block-container .stButton>button:focus {
 div.block-container .stSelectbox,
 div.block-container .stSlider,
 div.block-container .stNumberInput {
-    background-color: white;
+    background-color: white ;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ddd;
@@ -92,7 +92,7 @@ div.block-container .stSlider input[type="range"] {
 /* Estilo para el control deslizante (thumb) dentro de block-container */
 div.block-container .stSlider input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;   /* Eliminar estilo predeterminado del thumb */
-    appearance: none;            /* Asegurarnos que el estilo predeterminado del thumb no se aplique */
+    appearance: none !important;            /* Asegurarnos que el estilo predeterminado del thumb no se aplique */
     width: 16px;                 /* Tamaño del control deslizante */
     height: 16px;                /* Tamaño del control deslizante */
     border-radius: 50%;          /* Redondear el control deslizante */
@@ -108,14 +108,14 @@ div.block-container .stSlider input[type="range"]:hover {
 /* Estilo para el slider cuando está en foco dentro de block-container */
 div.block-container .stSlider input[type="range"]:focus {
     outline: none;              /* Eliminar el contorno al hacer foco */
-    background-color: #002a80;  /* Cambiar a azul más oscuro cuando está en foco */
+    background-color: #0041f5;  /* Cambiar a azul más oscuro cuando está en foco */
 }
 
 /* Estilo para el number input dentro de block-container */
 div.block-container .stNumberInput input {
     background-color: #ffffff; /* Fondo blanco */
-    color: #0041f5;            /* Color del texto en azul */
-    border: none;              /* Eliminar borde */
+    color: #0041f5 !important;            /* Color del texto en azul */
+    border: none !important;              /* Eliminar borde */
     border-radius: 8px;        /* Bordes redondeados */
     padding: 8px;
 }
