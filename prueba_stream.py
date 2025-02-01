@@ -110,18 +110,16 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
 
-        col1, col2 = st.columns(2)
+        # Convertir el tiempo a minutos y segundos
+        total_segundos = int(prediccion_tiempo[0])
+        horas = total_segundos // 3600
+        minutos = (total_segundos % 3600) // 60
 
-        with col1:
-            st.metric('Duración Estimada', f'{int(prediccion_tiempo[0] // 60)} minutos {int(prediccion_tiempo[0] % 60)} segundos')
-
-        with col2:
-            st.metric('Repartidores Disponibles', total_onshift_partners)
-            st.metric('Pedidos Pendientes', total_outstanding_orders)
-
-        # Mostrar datos de entrada
-        st.subheader('Detalles del Pedido')
-        st.dataframe(datos)
+        # Mostrar el tiempo en horas y minutos
+        if horas > 0:
+            st.metric('Duración Estimada', f'{horas} h {minutos} min')
+        else:
+            st.metric('Duración Estimada', f'{minutos} min')
 
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
