@@ -22,7 +22,7 @@ def load_css(file_name):
 load_css(os.path.abspath("04_PY/styles.css"))
 
 # Agregar una imagen de cabecera
-st.image("04_Imagenes/CABECERA.jpg", use_container_width=True)
+st.image("05_Imagenes/CABECERA.jpg", use_container_width=True)
 
 
 # Función para calcular la densidad de repartidores ajustada por tipo de restaurante
