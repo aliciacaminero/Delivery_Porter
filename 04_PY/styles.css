@@ -67,12 +67,11 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
 
 /* 🔹 Color del valor numérico del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
-    background: none !important; /* Elimina cualquier fondo */
-    box-shadow: none !important; /* Evita cualquier efecto de botón */
-    border: none !important; /* Elimina cualquier borde */
+    background-color: transparent !important; /* Asegura que no haya fondo */
     color: #0041f5 !important; /* Azul */
     font-weight: bold !important;
     padding: 0 !important;
+    border: none !important;
 }
 
 /* 🔹 Estilo del thumb (punto del slider) */
