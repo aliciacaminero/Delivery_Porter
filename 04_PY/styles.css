@@ -1,47 +1,62 @@
-/* styles.css */
-body {
-    background-color: #f4f4f4;
+/* Estilo para todo el contenedor principal */
+div.block-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #f4f4f4; /* Fondo del contenedor */
     color: #333;
     font-family: Arial, sans-serif;
 }
 
-/* Estilos para los botones */
-.stButton>button {
+/* Estilo normal del botón dentro del contenedor */
+div.block-container .stButton>button {
     background-color: #0041f5;
     color: white;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    transition: background 0.3s ease-in-out;
+    font-weight: normal;
+    border-radius: 8px; /* Bordes redondeados */
+    border: none; /* Elimina bordes */
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
 }
 
-.stButton>button:hover {
+/* Estilo cuando el cursor pasa por encima (hover) dentro del contenedor */
+div.block-container .stButton>button:hover {
+    background-color: white;
+    color: #0041f5;
+    font-weight: bold;
+    border: 2px solid #0041f5; /* Agrega un borde azul en hover */
+}
+
+/* Estilo cuando el botón está clicado dentro del contenedor */
+div.block-container .stButton>button:focus {
     background-color: #0041f5;
+    color: white;
+    font-weight: normal;
+    border-radius: 8px; /* Bordes redondeados */
+    border: none; /* Elimina bordes */
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
+    outline: none;
 }
 
-/* Estilos para los inputs */
-.stSelectbox, .stSlider, .stNumberInput {
+/* Estilos para los inputs dentro del contenedor */
+div.block-container .stSelectbox,
+div.block-container .stSlider,
+div.block-container .stNumberInput {
     background-color: white;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ddd;
 }
 
-/* Título principal */
-h1 {
+/* Título principal dentro del contenedor */
+div.block-container h1 {
     color: #0041f5;
     text-align: center;
 }
 
-/* Subtítulos */
-h2, h3 {
+/* Subtítulos dentro del contenedor */
+div.block-container h2,
+div.block-container h3 {
     color: #333;
     text-align: center;
-}
-
-/* Contenedor principal */
-div.block-container {
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
