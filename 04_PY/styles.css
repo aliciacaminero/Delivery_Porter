@@ -96,6 +96,7 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
 
 .stSlider input[type="range"]:focus {
     outline: none;             /* Quitar contorno cuando el slider está en foco */
+    color: #0041f5;
 }
 
 /* Estilo para el number input */
