@@ -62,10 +62,38 @@ div.block-container h3 {
 }
 
 /* Estilo para los selectores (selectbox) */
-.stSelectbox, .stSlider, .stNumberInput {
+/*.stSelectbox, .stSlider, .stNumberInput {
     background-color: #ffffff;
     border-radius: 8px;
     border: 2px solid #0041f5;  /* Borde azul */
-    color: #0041f5;  /* Color de texto */
+    /*color: #0041f5;  /* Color de texto */
+    /*padding: 10px;
+/*}
+
+/* Estilos generales para contenedor */
+div.stSelectbox, div.stSlider, div.stNumberInput {
+    background-color: #ffffff;  /* Fondo blanco */
+    border-radius: 8px;         /* Bordes redondeados */
+    border: 2px solid #0041f5;  /* Borde azul */
     padding: 10px;
+}
+
+/* Estilo para el selectbox (selector) */
+.stSelectbox select {
+    background-color: #ffffff;
+    color: #0041f5;  /* Color de texto azul */
+    border-radius: 8px;
+    border: 2px solid #0041f5; /* Borde azul */
+    padding: 10px;
+}
+
+/* Estilo para el slider */
+.stSlider input[type="range"] {
+    background-color: orange;  /* Cambiar fondo del slider a naranja */
+    height: 8px;               /* Ajustar altura del slider */
+    border-radius: 4px;        /* Bordes redondeados en el slider */
+}
+
+.stSlider input[type="range"]:focus {
+    outline: none;             /* Quitar contorno cuando el slider está en foco */
 }
