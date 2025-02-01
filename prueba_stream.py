@@ -110,10 +110,10 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
 
-        # Convertir el tiempo a minutos y segundos
-        total_segundos = int(prediccion_tiempo[0])
-        horas = total_segundos // 3600
-        minutos = (total_segundos % 3600) // 60
+        # Convertir el tiempo de entrega a minutos
+        total_minutos = int(prediccion_tiempo[0])
+        horas = total_minutos // 60
+        minutos = total_minutos % 60
 
         # Mostrar el tiempo en horas y minutos
         if horas > 0:
