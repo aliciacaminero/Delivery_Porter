@@ -51,16 +51,37 @@ day_map = {
 
 # Función para transformar los datos de entrada
 def transformar_datos(datos):
-    # Rellenar los valores NaN en las columnas categóricas con un valor predeterminado
-    datos['grouped_category'] = datos['grouped_category'].fillna('Desconocido')
-    datos['order_day'] = datos['order_day'].fillna('Desconocido')
+    from sklearn.preprocessing import LabelEncoder
 
-    # Mapear los valores de 'grouped_category' y 'order_day' a español
-    datos['grouped_category'] = datos['grouped_category'].map(category_map).fillna('Desconocido')
-    datos['order_day'] = datos['order_day'].map(day_map).fillna('Desconocido')
+    # Codificación de 'store_primary_category' con LabelEncoder
+    encoder_category = LabelEncoder()
+    datos['store_primary_category_encoded'] = encoder_category.fit_transform(datos['store_primary_category'])
 
-    # Asegurarnos de que las columnas estén presentes para el modelo
+    # Codificación de 'order_day' con LabelEncoder
+    encoder_day = LabelEncoder()
+    datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
+
+    # Crear 'is_high_duration' (ejemplo simple)
+    datos['is_high_duration'] = datos['order_hour'] > 18  
+
+    # Cálculo de partner_density
+    datos['partner_density'] = datos['total_onshift_partners'] / (datos['total_outstanding_orders'] + 1)
+
+    # Convertir columnas numéricas a formato correcto
+    columnas_numericas = ['total_outstanding_orders', 'total_onshift_partners', 'total_busy_partners', 'order_hour']
+    datos[columnas_numericas] = datos[columnas_numericas].apply(pd.to_numeric, errors='coerce')
+
+    # Revisar que los datos siguen siendo un DataFrame
+    if not isinstance(datos, pd.DataFrame):
+        print("⚠ Error: datos_transformados no es un DataFrame")
+        datos = pd.DataFrame(datos)
+
+    print("✅ Datos transformados correctamente:")
+    print(datos.dtypes)
+    print(datos.head())
+
     return datos
+
 
 # Título de la app
 st.title('Predicción de Tiempo de Entrega 🚚')
@@ -101,7 +122,16 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         }])
 
         # Transformar los datos de entrada
-        datos_transformados = transformar_datos(datos)
+            datos_transformados = transformar_datos(datos)
+
+        # Verificar que es un DataFrame válido
+            if not isinstance(datos_transformados, pd.DataFrame):
+                st.error("Error: La transformación de datos no devolvió un DataFrame.")
+                st.stop()
+
+# Realizar predicción de tiempo de entrega
+prediccion_tiempo = modelo_tiempo_entrega.predict(datos_transformados)
+
 
         # Crear un ColumnTransformer para manejar OneHotEncoding con 'handle_unknown="ignore"'
         preprocesador = ColumnTransformer(
