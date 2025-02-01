@@ -69,20 +69,20 @@ div.block-container .stSelectbox select {
 }*/
 
 /* 🔹 Color del valor numérico del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
+/*div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
     background: none !important; /* Elimina cualquier fondo */
-    box-shadow: none !important; /* Evita cualquier efecto de botón */
-    border: none !important; /* Elimina cualquier borde */
-    color: #0041f5 !important; /* Azul */
-    font-weight: bold !important;
+    /*box-shadow: none !important; /* Evita cualquier efecto de botón */
+    /*border: none !important; /* Elimina cualquier borde */
+    /*color: #0041f5 !important; /* Azul */
+    /*font-weight: bold !important;
     padding: 0 !important;
-}
+}*/
 
 /* 🔹 Estilo del thumb (punto del slider) */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
+/*div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
-}
+}*/
 
 /* 🔹 Ocultar líneas de valores del slider */
 /*div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
