@@ -72,15 +72,26 @@ with st.container():
 # Botón de predicción
 if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
-        # Crear DataFrame de entrada con nombres de columnas correctos
-        datos_entrada = pd.DataFrame([{
-            'grouped_category': reverse_category_map[store_primary_category],  # Convertir de español a inglés
-            'order_day': reverse_day_map[order_day],
-            'order_hour': order_hour,
-            'total_onshift_partners': total_onshift_partners,
-            'total_busy_partners': total_busy_partners,
-            'total_outstanding_orders': total_outstanding_orders
-        }])
+        # Crear DataFrame con las columnas en el orden correcto
+        columnas_modelo = ['grouped_category', 'order_day', 'order_hour', 
+                           'total_onshift_partners', 'total_busy_partners', 
+                           'total_outstanding_orders']
+        
+        datos_entrada = pd.DataFrame([[
+            reverse_category_map[store_primary_category],  # Convertir de español a inglés
+            reverse_day_map[order_day],
+            order_hour,
+            total_onshift_partners,
+            total_busy_partners,
+            total_outstanding_orders
+        ]], columns=columnas_modelo)  # Asegurar que las columnas coincidan
+
+        # Verificar que las columnas coincidan antes de predecir
+        if set(datos_entrada.columns) != set(columnas_modelo):
+            st.error("Error: Los nombres de columnas no coinciden con los esperados por el modelo.")
+            st.write("Esperado:", columnas_modelo)
+            st.write("Recibido:", list(datos_entrada.columns))
+            st.stop()
 
         # Verificar si el modelo es un Pipeline válido
         if hasattr(mejor_modelo, "predict"):
