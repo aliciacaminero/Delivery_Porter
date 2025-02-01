@@ -1,4 +1,4 @@
-/* 🔹 Estilos base */
+/* 🔹 Estilo para el contenedor principal */
 div.block-container {
     padding: 20px;
     background-color: #f4f4f4;
@@ -6,72 +6,81 @@ div.block-container {
     font-family: Arial, sans-serif;
 }
 
-/* 🔹 Selectbox y sus bordes */
-div.block-container .stSelectbox > div > div {
-    border: 2px solid white !important;
+/* 🔹 Botón principal */
+div.block-container .stButton>button {
+    background-color: #0041f5;
+    color: white;
+    font-weight: normal;
+    border-radius: 8px; 
+    border: none;
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
 }
 
-div.block-container .stSelectbox > div > div:hover,
-div.block-container .stSelectbox > div > div:focus,
-div.block-container .stSelectbox > div > div:active {
-    border-color: #0041f5 !important;
-    box-shadow: 0 0 0 1px #0041f5 !important;
+/* 🔹 Estilo hover y focus del botón */
+div.block-container .stButton>button:hover {
+    background-color: white;
+    color: #0041f5;
+    font-weight: bold;
+    border: 2px solid #0041f5;
 }
 
-/* 🔹 Número de pedidos */
-div.block-container .stNumberInput > div {
-    border: 2px solid white !important;
+div.block-container .stButton>button:focus {
+    outline: none;
 }
 
-div.block-container .stNumberInput > div:hover,
-div.block-container .stNumberInput > div:focus,
-div.block-container .stNumberInput > div:active {
-    border-color: #0041f5 !important;
-    box-shadow: 0 0 0 1px #0041f5 !important;
+/* 🔹 Inputs y select dentro del contenedor */
+div.block-container .stSelectbox,
+div.block-container .stSlider,
+div.block-container .stNumberInput {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
 }
 
-/* 🔹 Estilos específicos del Slider */
-/* Valor numérico del slider */
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] {
-    color: #0041f5 !important;
+/* 🔹 Estilos para títulos */
+div.block-container h1 {
+    color: #0041f5;
+    text-align: center;
 }
 
-div.block-container .stSlider [data-baseweb="tooltip"] {
-    background-color: transparent !important;
-    color: #0041f5 !important;
+div.block-container h2,
+div.block-container h3 {
+    color: #333;
+    text-align: center;
 }
 
-/* Color de la barra del slider */
-div.block-container .stSlider [data-baseweb="slider"] div[role="progressbar"] {
-    background: #0041f5 !important;
+/* 🔹 Estilo para el selectbox */
+div.block-container .stSelectbox select {
+    background-color: #ffffff;
+    color: #0041f5;
+    border-radius: 8px;
+    border: 2px solid #0041f5;
+    padding: 10px;
 }
 
-/* Barra completa del slider */
-div.block-container .stSlider [data-baseweb="slider-track"] {
-    background: rgba(0, 65, 245, 0.2) !important;
+/* 🔹 Estilos para el slider */
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
+    background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
 }
 
-/* Números de la escala */
-div.block-container .stSlider [data-testid="stTickBar"] div {
-    color: #666666 !important;
+/* 🔹 Color del valor numérico del slider */
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
+    background-color: transparent !important; /* Asegura que no haya fondo */
+    color: #0041f5 !important; /* Azul */
+    font-weight: bold !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
-/* Punto del slider */
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] {
+/* 🔹 Estilo del thumb (punto del slider) */
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
 }
 
-/* Eliminar fondos del tooltip */
-div.block-container .stSlider [data-baseweb="popover"],
-div.block-container .stSlider [data-baseweb="tooltip"] {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Valor actual del slider */
-div.block-container .stSlider [data-baseweb="slider"] span {
-    color: #0041f5 !important;
+/* 🔹 Ocultar líneas de valores del slider */
+div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
     background: transparent !important;
 }
