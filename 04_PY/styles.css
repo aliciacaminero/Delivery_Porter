@@ -11,7 +11,7 @@ div.block-container .stButton>button {
     background-color: #0041f5;
     color: white;
     font-weight: normal;
-    border-radius: 8px;
+    border-radius: 8px; 
     border: none;
     padding: 8px 16px;
     transition: all 0.3s ease-in-out;
@@ -67,8 +67,12 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
 
 /* 🔹 Color del valor numérico del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
-    color: #0041f5 !important;
+    background: none !important; /* Elimina cualquier fondo */
+    box-shadow: none !important; /* Evita cualquier efecto de botón */
+    border: none !important; /* Elimina cualquier borde */
+    color: #0041f5 !important; /* Azul */
     font-weight: bold !important;
+    padding: 0 !important;
 }
 
 /* 🔹 Estilo del thumb (punto del slider) */
