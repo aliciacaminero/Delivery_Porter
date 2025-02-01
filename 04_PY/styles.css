@@ -96,9 +96,8 @@ div.block-container .st-emotion-cache-1dj3ksd {
   }
 
   div.block-container div[data-testid="stSlider"] > div[role="slider"] > div[data-testid="stSliderThumbValue"] {
-    color: #0041f5 !important;
+    color: #0041f5 !important; /* Azul */
   }
-
 
 /* Estilo para el control deslizante (thumb) dentro de block-container */
 div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
