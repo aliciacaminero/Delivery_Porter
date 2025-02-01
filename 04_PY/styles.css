@@ -1,75 +1,105 @@
-/* 🔹 Estilo para el contenedor principal */
+/* Estilo para todo el contenedor principal */
 div.block-container {
-    padding: 20px;
-    background-color: #f4f4f4;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #f4f4f4; /* Fondo del contenedor */
     color: #333;
     font-family: Arial, sans-serif;
 }
 
-/* 🔹 Botón principal */
+/* Estilo normal del botón dentro del contenedor */
 div.block-container .stButton>button {
     background-color: #0041f5;
     color: white;
     font-weight: normal;
-    border-radius: 8px;
-    border: none;
+    border-radius: 8px; /* Bordes redondeados */
+    border: none; /* Elimina bordes */
     padding: 8px 16px;
     transition: all 0.3s ease-in-out;
 }
 
-/* 🔹 Estilo hover y focus del botón */
+/* Estilo cuando el cursor pasa por encima (hover) dentro del contenedor */
 div.block-container .stButton>button:hover {
     background-color: white;
     color: #0041f5;
     font-weight: bold;
-    border: 2px solid #0041f5;
+    border: 2px solid #0041f5; /* Agrega un borde azul en hover */
 }
 
+/* Estilo cuando el botón está clicado dentro del contenedor */
 div.block-container .stButton>button:focus {
+    background-color: #0041f5;
+    color: white;
+    font-weight: normal;
+    border-radius: 8px; /* Bordes redondeados */
+    border: none; /* Elimina bordes */
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
     outline: none;
 }
 
-/* 🔹 Inputs y select dentro del contenedor */
+/* Estilos para los inputs dentro del contenedor */
 div.block-container .stSelectbox,
 div.block-container .stSlider,
 div.block-container .stNumberInput {
-    background-color: white;
+    background-color: white ;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ddd;
 }
 
-/* 🔹 Estilos para títulos */
+/* Título principal dentro del contenedor */
 div.block-container h1 {
     color: #0041f5;
     text-align: center;
 }
 
+/* Subtítulos dentro del contenedor */
 div.block-container h2,
 div.block-container h3 {
     color: #333;
     text-align: center;
 }
 
-/* 🔹 Estilo para el selectbox */
-div.block-container .stSelectbox select {
-    background-color: #ffffff;
-    color: #0041f5;
-    border-radius: 8px;
-    border: 2px solid #0041f5;
+/* Estilos generales para contenedor dentro de block-container */
+div.block-container div.stSelectbox,
+div.block-container div.stSlider,
+div.block-container div.stNumberInput {
+    background-color: #ffffff;  /* Fondo blanco */
+    border-radius: 8px;         /* Bordes redondeados */
+    border: none;  /* Borde azul */
     padding: 10px;
 }
 
-/* 🔹 Estilos para el slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
-    background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 50%), rgba(151, 166, 195, 0.25) var(--NB, 50%), rgba(151, 166, 195, 0.25) 100%) !important;
+/* Estilo para el selectbox (selector) dentro de block-container */
+div.block-container .stSelectbox select {
+    background-color: #ffffff;
+    color: #0041f5;  /* Color de texto azul */
+    border-radius: 8px;
+    border: 2px solid #0041f5; /* Borde azul */
+    padding: 10px;
 }
 
-/* 🔹 Color del valor numérico del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
-    color: #0041f5 !important;
-    font-weight: bold !important;
+/* Estilo para el slider dentro de block-container */
+div.block-container .stSlider input[type="range"] {
+    appearance: none;  /* Eliminar estilo predeterminado */
+    width: 100%;               /* Hacer que el slider ocupe todo el contenedor */
+    height: 8px;               /* Ajustar altura del slider */
+    border-radius: 4px;        /* Bordes redondeados */
+    background-color:#0041f5 !important;   /* Fondo azul */
 }
+
+/*punto del slider*/
+div.block-container .st-emotion-cache-1dj3ksd {
+    background-color: #0041f5 !important; /* Azul */
+    border: none !important; /* Elimina el borde rojo */
+  }
+
+/* Estilos para el slider */
+div[role="slider"][aria-label="Hora del pedido (0-23):"] > div[data-testid="stSliderThumbValue"] {
+    color: #0041f5 !important; /* Azul */
+    font-weight: bold !important;
+  }
 
 
   div.stSlider > div[data-baseweb="slider"] > div > div {
@@ -88,7 +118,22 @@ div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;            /* Hacer el cursor de puntero en el thumb */
 }
 
-/* 🔹 Ocultar líneas de valores del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
-    background: transparent !important;
+/* Estilo para el slider cuando está en hover dentro de block-container */
+div.block-container .stSlider input[type="range"]:hover {
+    background-color: #002a80 !important;  /* Cambiar a un azul más oscuro en hover */
+}
+
+/* Estilo para el slider cuando está en foco dentro de block-container */
+div.block-container .stSlider input[type="range"]:focus {
+    outline: none;              /* Eliminar el contorno al hacer foco */
+    background-color: #0041f5 !important;  /* Cambiar a azul más oscuro cuando está en foco */
+}
+
+/* Estilo para el number input dentro de block-container */
+div.block-container .stNumberInput input {
+    background-color: #ffffff; /* Fondo blanco */
+    color: #0041f5 !important;            /* Color del texto en azul */
+    border: none !important;              /* Eliminar borde */
+    border-radius: 8px;        /* Bordes redondeados */
+    padding: 8px;
 }
