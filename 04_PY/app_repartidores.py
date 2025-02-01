@@ -21,6 +21,15 @@ load_css(os.path.abspath("04_PY/styles.css"))
 # Agregar una imagen de cabecera
 st.image("04_Imagenes/CABECERA.jpg", use_column_width=True)
 
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <img src='04_Imagenes/CABECERA.jpg' width='100%'>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # Función para calcular la densidad de repartidores ajustada por tipo de restaurante
 def calculate_partner_density(total_outstanding_orders, order_hour, grouped_category):
