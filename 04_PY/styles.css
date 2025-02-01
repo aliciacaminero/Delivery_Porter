@@ -84,7 +84,7 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
     width: 100%;               /* Hacer que el slider ocupe todo el contenedor */
     height: 8px;               /* Ajustar altura del slider */
     border-radius: 4px;        /* Bordes redondeados */
-    background-color: orange;  /* Fondo naranja */
+    background-color: #0041f5;  /* Fondo naranja */
 }
 
 .stSlider input[type="range"]:focus {
@@ -94,7 +94,7 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
 
 /* Estilo para el slider cuando está en hover (deslizando el mouse sobre él) */
 .stSlider input[type="range"]:hover {
-    background-color: #ff6600;  /* Cambiar a un naranja más oscuro en hover */
+    background-color: #0041f5;  /* Cambiar a un naranja más oscuro en hover */
 }
 
 /* Estilo para el number input */
