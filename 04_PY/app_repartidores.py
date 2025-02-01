@@ -3,8 +3,6 @@ import streamlit as st
 import pandas as pd
 import os
 
-
-
 # Cargar el modelo
 model = joblib.load("03_PKL/calculo_repartidores.pkl")
 
@@ -18,7 +16,7 @@ def load_css(file_name):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Llamar la función para aplicar estilos
-load_css(os.path.abspath("styles.css"))
+load_css(os.path.abspath("04_PY/styles.css"))
 
 # Agregar una imagen de cabecera
 #st.image("https://source.unsplash.com/1200x400/?delivery", use_column_width=True)
