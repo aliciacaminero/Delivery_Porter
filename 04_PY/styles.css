@@ -97,7 +97,7 @@ div.block-container .st-emotion-cache-1dj3ksd {
 
   div.block-container div[data-testid="stSlider"] > div[role="slider"] > div[data-testid="stSliderThumbValue"] {
     color: #0041f5 !important; /* Azul */
-    background-color: #0041f5;
+    background: linear-gradient(to right, #0041f5 0%, #0041f5 52.1739%, rgba(151, 166, 195, 0.25) 52.1739%, rgba(151, 166, 195, 0.25) 100%);
   }
 
 /* Estilo para el control deslizante (thumb) dentro de block-container */
