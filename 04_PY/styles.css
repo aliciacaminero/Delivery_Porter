@@ -89,7 +89,7 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
 
 /* Estilo para el slider */
 .stSlider input[type="range"] {
-    background-color: orange;  /* Cambiar fondo del slider a naranja */
+    background-color: #0041f5;  /* Cambiar fondo del slider a naranja */
     height: 8px;               /* Ajustar altura del slider */
     border-radius: 4px;        /* Bordes redondeados en el slider */
 }
@@ -102,7 +102,7 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
 .stNumberInput input {
     background-color: #ffffff; /* Fondo blanco */
     color: #0041f5;            /* Color del texto en azul */
-    border: 2px solid #0041f5; /* Borde azul */
+    border: none; /* Borde azul */
     border-radius: 8px;        /* Bordes redondeados */
     padding: 8px;
 }
