@@ -24,6 +24,15 @@ body {
     border: 2px solid #0041f5; /* Opcional: agregar borde azul en hover */
 }
 
+/* Estilo cuando el botón está clicado */
+.stButton>button:focus {
+    background-color: #0041f5;
+    color: white;
+    font-weight: normal;
+    outline: none;  /* Elimina el borde de enfoque */
+}
+
+
 /* Estilos para los inputs */
 .stSelectbox, .stSlider, .stNumberInput {
     background-color: white;
