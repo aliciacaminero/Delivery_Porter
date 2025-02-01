@@ -86,7 +86,7 @@ div.block-container .stSlider input[type="range"] {
     width: 100%;               /* Hacer que el slider ocupe todo el contenedor */
     height: 8px;               /* Ajustar altura del slider */
     border-radius: 4px;        /* Bordes redondeados */
-    background-color: #0041f5;  /* Fondo azul */
+    background-color:#0041f5 !important;   /* Fondo azul */
 }
 
 /*punto del slider*/
