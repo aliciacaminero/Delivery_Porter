@@ -29,7 +29,10 @@ body {
     background-color: #0041f5;
     color: white;
     font-weight: normal;
-    outline: none;  /* Elimina el borde de enfoque */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+    border: none; /* Elimina bordes */
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
 }
 
 
