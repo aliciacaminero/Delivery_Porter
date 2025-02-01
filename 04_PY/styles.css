@@ -18,6 +18,8 @@ body {
 
 .stButton>button:hover {
     background-color: #0041f5;
+    color: white;
+    font-weight: bold;
 }
 
 /* Estilos para los inputs */
