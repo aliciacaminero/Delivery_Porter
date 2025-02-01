@@ -103,9 +103,10 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
     background-color: #002a80;  /* Cambiar a un azul más oscuro en hover */
 }
 
-/* Estilo para el slider cuando está en hover (deslizando el mouse sobre él) */
-.stSlider input[type="range"]:hover {
-    background-color: #0041f5;  /* Cambiar a un naranja más oscuro en hover */
+/* Estilo para el slider cuando está en foco */
+.stSlider input[type="range"]:focus {
+    outline: none;              /* Eliminar el contorno al hacer foco */
+    background-color: #002a80;  /* Cambiar a azul más oscuro cuando está en foco */
 }
 
 /* Estilo para el number input */
