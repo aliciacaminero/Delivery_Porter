@@ -33,6 +33,7 @@ body {
     border: none; /* Elimina bordes */
     padding: 8px 16px;
     transition: all 0.3s ease-in-out;
+    outline: none;
 }
 
 
