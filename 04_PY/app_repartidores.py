@@ -13,7 +13,6 @@ st.set_page_config(
     layout="centered"
 )
 
-
 # Cargar el archivo CSS externo
 def load_css(file_name):
     with open(file_name, "r") as f:
