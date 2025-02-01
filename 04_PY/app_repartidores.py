@@ -1,6 +1,9 @@
 import joblib
 import streamlit as st
 import pandas as pd
+import os
+
+
 
 # Cargar el modelo
 model = joblib.load("03_PKL/calculo_repartidores.pkl")
@@ -10,12 +13,12 @@ model = joblib.load("03_PKL/calculo_repartidores.pkl")
 st.set_page_config(page_title="Predicción de Repartidores", page_icon="🛵", layout="centered")
 
 # Cargar el archivo CSS externo
-#def load_css(file_name):
-    #with open(file_name, "r") as f:
-        #st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+def load_css(file_name):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Llamar la función para aplicar estilos
-#load_css("styles.css")
+load_css(os.path.abspath("styles.css"))
 
 # Agregar una imagen de cabecera
 #st.image("https://source.unsplash.com/1200x400/?delivery", use_column_width=True)
