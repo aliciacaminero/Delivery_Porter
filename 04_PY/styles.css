@@ -62,51 +62,42 @@ div.block-container .stSelectbox > div > div:focus {
     box-shadow: 0 0 0 1px #0041f5 !important;
 }
 
-/* 🔹 Estilos para el slider */
+/* 🔹 Estilos para el slider principal */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
 }
 
-/* 🔹 Color del valor numérico flotante del slider */
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] + div {
-    background: none !important;
-    border: none !important;
+/* 🔹 Estilo para el número actual del slider (el 0) */
+div.block-container .stSlider [data-baseweb="slider"] div[role="slider"] {
+    color: #0041f5 !important;
 }
 
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] + div > div {
+div.block-container .stSlider [data-baseweb="slider"] div[role="slider"]::after {
+    content: attr(aria-valuenow);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
     color: #0041f5 !important;
     background: transparent !important;
     border: none !important;
     font-weight: bold !important;
 }
 
-/* 🔹 Números de la escala del slider (0 y 23) */
-div.block-container .stSlider [data-testid="stTickBar"] {
-    color: #0041f5 !important;
-}
-
-div.block-container .stSlider [data-testid="stTickBar"] > div {
+/* 🔹 Estilo para los números de la escala (0 y 23) */
+div.block-container .stSlider [data-testid="stTickBar"] div {
+    color: #666666 !important;
     background: none !important;
-    color: #0041f5 !important;
-    font-weight: bold !important;
+    font-weight: normal !important;
 }
 
-/* 🔹 Valor actual del slider (número naranja) */
-div.block-container .stSlider [data-baseweb="slider"] {
-    color: #0041f5 !important;
+/* 🔹 Eliminar sombreado azul del slider */
+div.block-container .stSlider [data-baseweb="slider"] div[role="slider"] + div {
+    display: none !important;
 }
 
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] {
-    color: #0041f5 !important;
-}
-
-/* 🔹 Estilo del thumb (punto del slider) */
+/* 🔹 Estilo del punto del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
-}
-
-/* 🔹 Ocultar líneas de valores del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
-    background: transparent !important;
 }
