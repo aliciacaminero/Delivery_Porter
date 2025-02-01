@@ -67,7 +67,7 @@ div.block-container div.stSlider,
 div.block-container div.stNumberInput {
     background-color: #ffffff;  /* Fondo blanco */
     border-radius: 8px;         /* Bordes redondeados */
-    border: 2px solid #0041f5;  /* Borde azul */
+    border: none;  /* Borde azul */
     padding: 10px;
 }
 
