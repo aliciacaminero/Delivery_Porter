@@ -4,23 +4,17 @@ import joblib
 import requests
 from io import BytesIO
 import streamlit as st
-from sklearn.preprocessing import OneHotEncoder
 
-# URL del archivo del modelo de tiempo de entrega
+# URL del modelo
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
 
-# Intentar cargar el modelo con manejo de errores específico
+# Cargar el modelo desde la URL
 try:
     response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
     if response_tiempo_entrega.status_code == 200:
-        try:
-            # Intentar cargar el modelo con joblib
-            modelo_datos = BytesIO(response_tiempo_entrega.content)
-            mejor_modelo = joblib.load(modelo_datos)  # Cargar correctamente el modelo
-            st.success('Modelo de tiempo de entrega cargado correctamente.')
-        except Exception as e:
-            st.error(f'Error al cargar el modelo: {str(e)}')
-            st.stop()
+        modelo_datos = BytesIO(response_tiempo_entrega.content)
+        mejor_modelo = joblib.load(modelo_datos)  # Cargar el modelo correctamente
+        st.success('Modelo de tiempo de entrega cargado correctamente.')
     else:
         st.error('No se pudo descargar el modelo de la URL proporcionada.')
         st.stop()
@@ -58,31 +52,6 @@ day_map = {
 reverse_category_map = {v: k for k, v in category_map.items()}
 reverse_day_map = {v: k for k, v in day_map.items()}
 
-def preparar_caracteristicas(datos):
-    """
-    Prepara las características para la predicción.
-    """
-    # Convertir categorías de español a inglés
-    datos['grouped_category'] = datos['grouped_category'].map(reverse_category_map)
-    datos['order_day'] = datos['order_day'].map(reverse_day_map)
-    
-    cat_encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
-    
-    # Separar características categóricas y numéricas
-    cat_features = ['grouped_category', 'order_day']
-    num_features = ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders']
-    
-    # Codificar variables categóricas
-    cat_encoded = cat_encoder.fit_transform(datos[cat_features])
-    
-    # Obtener características numéricas como array
-    num_array = datos[num_features].values
-    
-    # Combinar características codificadas y numéricas
-    X = np.hstack([cat_encoded, num_array])
-    
-    return X
-
 # Interfaz de usuario
 st.title('Predicción de Tiempo de Entrega 🚚')
 
@@ -100,45 +69,34 @@ with st.container():
         total_busy_partners = st.number_input('Total Repartidores Asignados', min_value=0, max_value=50, value=5)
         total_outstanding_orders = st.number_input('Pedidos Pendientes', min_value=0, max_value=100, value=20)
 
-# Botón de predicción en la barra lateral
+# Botón de predicción
 if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
-        # Crear DataFrame de entrada
+        # Crear DataFrame de entrada con nombres de columnas correctos
         datos_entrada = pd.DataFrame([{
-            'grouped_category': store_primary_category,
-            'order_day': order_day,
+            'grouped_category': reverse_category_map[store_primary_category],  # Convertir de español a inglés
+            'order_day': reverse_day_map[order_day],
             'order_hour': order_hour,
             'total_onshift_partners': total_onshift_partners,
             'total_busy_partners': total_busy_partners,
             'total_outstanding_orders': total_outstanding_orders
         }])
 
-        # Preparar características
-        X = preparar_caracteristicas(datos_entrada)
-        
-        # Verificar si el modelo es válido antes de predecir
-        if isinstance(mejor_modelo, np.ndarray):
-            st.error("El modelo cargado no es un modelo de scikit-learn válido.")
-        elif hasattr(mejor_modelo, "predict"):
-            # Realizar predicción
-            prediccion_tiempo = mejor_modelo.predict(X)[0]
+        # Verificar si el modelo es un Pipeline válido
+        if hasattr(mejor_modelo, "predict"):
+            # Hacer la predicción con el modelo
+            prediccion_tiempo = mejor_modelo.predict(datos_entrada)[0]
 
-            # Convertir el tiempo a minutos y redondear al minuto más cercano
+            # Convertir el tiempo a minutos y redondear
             minutos = max(1, round(float(prediccion_tiempo) / 60))
 
-            # Mostrar resultados
+            # Mostrar resultado
             st.subheader('Resultados de la Predicción')
             st.metric('Tiempo Estimado de Entrega', f'{minutos} minutos')
         else:
-            st.error("El objeto cargado no es un modelo de scikit-learn.")
-            
+            st.error("El modelo cargado no es un Pipeline válido.")
+
     except Exception as e:
         st.error(f'Error al procesar los datos: {str(e)}')
         st.write('Detalles del error:')
         st.write(e)
-        
-        # Debug information
-        st.write('Forma del array X:', X.shape)
-        st.write('Tipo de mejor_modelo:', type(mejor_modelo))
-        if isinstance(mejor_modelo, np.ndarray):
-            st.write('Forma del modelo:', mejor_modelo.shape)
