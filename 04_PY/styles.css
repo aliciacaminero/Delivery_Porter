@@ -25,7 +25,7 @@ div.block-container .stButton>button:hover {
     border: 2px solid #0041f5;
 }
 
-/* 🔹 Selectbox y bordes */
+/* 🔹 Selectbox y sus bordes */
 div.block-container .stSelectbox > div > div {
     border-color: #0041f5 !important;
 }
@@ -36,47 +36,60 @@ div.block-container .stSelectbox > div > div:focus {
     box-shadow: 0 0 0 1px #0041f5 !important;
 }
 
-/* 🔹 Estilos específicos del Slider */
-/* Barra del slider */
-div.block-container .stSlider > div > div > div > div {
-    background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
+/* 🔹 Estilo para el número de pedidos */
+div.block-container .stNumberInput > div {
+    border-color: #0041f5 !important;
 }
 
-/* Eliminar fondo naranja del número */
-div.block-container .stSlider div[data-baseweb="slider"] div[role="slider"] div {
-    background-color: transparent !important;
-    background: none !important;
+div.block-container .stNumberInput > div:hover,
+div.block-container .stNumberInput > div:focus {
+    border-color: #0041f5 !important;
+    box-shadow: 0 0 0 1px #0041f5 !important;
+}
+
+div.block-container .stNumberInput input {
     color: #0041f5 !important;
 }
 
-/* Eliminar sombreado y cambiar color de los números de la escala */
-div.block-container .stSlider div[data-baseweb="slider"] div[data-testid="stTickBar"] {
+/* Botones + y - del número de pedidos */
+div.block-container .stNumberInput button {
+    border-color: #0041f5 !important;
+    color: #0041f5 !important;
+}
+
+div.block-container .stNumberInput button:hover {
+    background-color: #0041f5 !important;
+    color: white !important;
+}
+
+/* 🔹 Estilos del Slider */
+/* Barra del slider - color principal */
+div.block-container .stSlider [data-baseweb="slider"] div[data-testid="stSliderBar"] {
+    background: #0041f5 !important;
+}
+
+/* Barra de progreso del slider */
+div.block-container .stSlider [data-baseweb="slider-track"] {
+    background: #0041f5 !important;
+}
+
+/* Color de la barra inactiva */
+div.block-container .stSlider [data-baseweb="slider"] div[data-testid="stSliderBar"] {
+    background: rgba(0, 65, 245, 0.2) !important;
+}
+
+/* Valor numérico del slider */
+div.block-container .stSlider [data-baseweb="slider"] div[role="slider"] {
+    color: #0041f5 !important;
+}
+
+/* Números de la escala */
+div.block-container .stSlider [data-testid="stTickBar"] div {
     color: #666666 !important;
     background: none !important;
 }
 
-div.block-container .stSlider div[data-baseweb="slider"] div[data-testid="stTickBar"] div {
-    background: none !important;
-    color: #666666 !important;
-}
-
-/* Estilo para el valor actual (número flotante) */
-div.block-container .stSlider [data-baseweb="tooltip"] {
-    background: transparent !important;
-    color: #0041f5 !important;
-}
-
-/* Eliminar cualquier fondo o sombreado residual */
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] + div,
-div.block-container .stSlider [data-baseweb="slider"] [role="slider"] div,
-div.block-container .stSlider [data-baseweb="popover"],
-div.block-container .stSlider [data-baseweb="tooltip"] {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Estilo del punto del slider */
+/* Punto del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
