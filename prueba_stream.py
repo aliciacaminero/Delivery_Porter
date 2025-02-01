@@ -12,6 +12,13 @@ import os
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
 
 
+
+st.set_page_config(
+    page_title="Predicción Tiempo de Entrega",
+    page_icon="🚚",
+    layout="centered"
+)
+
 # Cargar el archivo CSS externo
 def load_css(file_name):
     with open(file_name, "r") as f:
@@ -75,7 +82,7 @@ def transformar_datos(datos):
     return datos[columnas_numericas + columnas_categoricas]
 
 # Título de la app
-st.title('Predicción de Tiempo de Entrega 🚚')
+st.title('Predicción de Tiempo de Entrega')
 
 # Contenedor principal para parámetros de entrada
 with st.container():
