@@ -26,7 +26,10 @@ div.block-container .stButton>button:hover {
 }
 
 div.block-container .stButton>button:focus {
-    outline: none;
+    background-color: #0041f5;
+    color: white;
+    font-weight: bold;
+    border: 2px solid #0041f5;
 }
 
 /* 🔹 Inputs y select dentro del contenedor */
