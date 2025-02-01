@@ -66,47 +66,6 @@ def transformar_datos(datos):
 # Título de la app
 st.title('Predicción de Tiempo de Entrega 🚚')
 
-# Insertamos el bloque de CSS con st.markdown()
-st.markdown("""
-    <style>
-    /* Estilo para el slider */
-    div[data-testid="stSlider"] input[type="range"] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 8px;
-        border-radius: 5px;
-        background-color: #0041f5;
-        /* Barra del slider */
-    }
-    div[data-testid="stSlider"] input[type="range"]:focus {
-        outline: none;
-    }
-
-    /* Estilo para el thumb del slider */
-    div[data-testid="stSlider"] .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background-color: #0041f5;
-        cursor: pointer;
-        border: 2px solid #0041f5;
-    }
-
-    /* Estilo cuando el thumb está en hover */
-    div[data-testid="stSlider"] .stSlider__thumb input[type="range"]:hover {
-        background-color: #0031b0;
-    }
-
-    /* Valor del slider */
-    div[data-testid="stSlider"] > div[role="slider"] > div[data-testid="stSliderThumbValue"] {
-        color: #0041f5 !important;
-        font-weight: bold !important;
-    }
-    </style>
-""", unsafe_allow_html=True)   
-
 # Contenedor principal para parámetros de entrada
 with st.container():
     col1, col2 = st.columns(2)
