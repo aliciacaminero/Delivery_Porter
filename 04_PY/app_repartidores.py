@@ -7,8 +7,12 @@ import os
 model = joblib.load("03_PKL/calculo_repartidores.pkl")
 
 
-# Establecer configuración de la página
-st.set_page_config(page_title="Predicción de Repartidores", page_icon="🛵", layout="centered")
+st.set_page_config(
+    page_title="Predicción de Repartidores",
+    page_icon="🛵",
+    layout="centered"
+)
+
 
 # Cargar el archivo CSS externo
 def load_css(file_name):
