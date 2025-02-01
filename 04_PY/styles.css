@@ -25,7 +25,7 @@ body {
 }
 
 /* Estilo cuando el botón está clicado */
-.stButton>button:focus-visible {
+.stButton>button:focus {
     background-color: #0041f5;
     color: white;
     font-weight: normal;
