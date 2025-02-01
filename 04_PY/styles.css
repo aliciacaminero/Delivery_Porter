@@ -5,21 +5,23 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Estilos para los botones */
+/* Estilo normal del botón */
 .stButton>button {
     background-color: #0041f5;
     color: white;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    transition: background 0.3s ease-in-out;
+    font-weight: normal;
+    border-radius: 8px; /* Opcional: bordes redondeados */
+    border: none; /* Elimina bordes */
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
 }
 
+/* Estilo cuando el cursor pasa por encima (hover) */
 .stButton>button:hover {
-    background-color: #0041f5;
-    color: white;
+    background-color: white;
+    color: #0041f5;
     font-weight: bold;
+    border: 2px solid #0041f5; /* Opcional: agregar borde azul en hover */
 }
 
 /* Estilos para los inputs */
