@@ -19,7 +19,7 @@ def load_css(file_name):
 load_css(os.path.abspath("04_PY/styles.css"))
 
 # Agregar una imagen de cabecera
-st.image("04_Imagenes/CABECERA.jpg", use_column_width=True)
+#st.image("04_Imagenes/CABECERA.jpg", use_column_width=True)
 
 st.markdown(
     """
