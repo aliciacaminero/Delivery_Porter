@@ -19,9 +19,7 @@ def load_css(file_name):
 load_css(os.path.abspath("04_PY/styles.css"))
 
 # Agregar una imagen de cabecera
-#st.image("https://source.unsplash.com/1200x400/?delivery", use_column_width=True)
-
-
+st.markdown('<header></header>', unsafe_allow_html=True)
 
 
 # Función para calcular la densidad de repartidores ajustada por tipo de restaurante
