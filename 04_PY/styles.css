@@ -65,18 +65,24 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
 }
 
-/* 🔹 Color del valor numérico del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div,
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div span {
-    background-color: transparent !important;  /* Elimina cualquier fondo */
+/* 🔹 Elimina el fondo azul y aplica color azul al texto de los valores numéricos */
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
+    background: transparent !important;  /* Elimina cualquier fondo */
     color: #0041f5 !important; /* Establece el color azul */
     font-weight: bold !important;
     padding: 0 !important;
     border: none !important;
-    box-shadow: none !important; /* Evita cualquier sombra de fondo */
+    box-shadow: none !important; /* Evita cualquier sombra */
 }
 
-/* 🔹 Estilo del valor del número */
+/* 🔹 Aplica el color azul también a los números dentro de un span */
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div span {
+    background: transparent !important;  /* Asegura que no tenga fondo */
+    color: #0041f5 !important;  /* Asegura que el texto sea azul */
+    font-weight: bold !important;
+}
+
+/* 🔹 Estilo del thumb (punto del slider) */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
