@@ -22,10 +22,10 @@ if response_tiempo_entrega.status_code == 200:
 else:
     st.error('No se pudo cargar el modelo de tiempo de entrega desde la URL proporcionada.')
 
-# Diccionario de mapeo de valores en inglés a español para 'grouped_category'
+# Diccionarios de mapeo
 category_map = {
     'Italian': 'Italiana',
-    'Mexican': 'Mexicana',
+    'Mexican': 'Mexicana', 
     'Fast Food': 'Comida Rápida',
     'American': 'Americana',
     'Asian': 'Asiática',
@@ -38,7 +38,6 @@ category_map = {
     'Desserts': 'Postres'
 }
 
-# Diccionario de mapeo de valores en inglés a español para 'order_day'
 day_map = {
     'Monday': 'Lunes',
     'Tuesday': 'Martes',
@@ -49,18 +48,20 @@ day_map = {
     'Sunday': 'Domingo'
 }
 
-# Función para transformar los datos de entrada
+# Mapeo inverso para convertir de español a inglés
+reverse_category_map = {v: k for k, v in category_map.items()}
+reverse_day_map = {v: k for k, v in day_map.items()}
+
 def transformar_datos(datos):
-    # Rellenar los valores NaN en las columnas categóricas con un valor predeterminado
-    datos['grouped_category'] = datos['grouped_category'].fillna('Desconocido')
-    datos['order_day'] = datos['order_day'].fillna('Desconocido')
-
-    # Mapear los valores de 'grouped_category' y 'order_day' a español
-    datos['grouped_category'] = datos['grouped_category'].map(category_map).fillna('Desconocido')
-    datos['order_day'] = datos['order_day'].map(day_map).fillna('Desconocido')
-
-    # Asegurarnos de que las columnas estén presentes para el modelo
-    return datos
+    # Convertir categorías de español a inglés para el modelo
+    datos['grouped_category'] = datos['grouped_category'].map(reverse_category_map)
+    datos['order_day'] = datos['order_day'].map(reverse_day_map)
+    
+    # Asegurarse de que todas las columnas necesarias estén presentes
+    columnas_numericas = ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders']
+    columnas_categoricas = ['grouped_category', 'order_day']
+    
+    return datos[columnas_numericas + columnas_categoricas]
 
 # Título de la app
 st.title('Predicción de Tiempo de Entrega 🚚')
@@ -100,20 +101,10 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_hour': order_hour
         }])
 
-        # Transformar los datos de entrada
+        # Transformar los datos
         datos_transformados = transformar_datos(datos)
 
-        # Crear un ColumnTransformer para manejar OneHotEncoding con 'handle_unknown="ignore"'
-        preprocesador = ColumnTransformer(
-            transformers=[
-                ('cat', OneHotEncoder(handle_unknown='ignore'), ['grouped_category', 'order_day']),  # Codificación one-hot con manejo de categorías desconocidas
-                ('num', 'passthrough', ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders'])  # Pasar columnas numéricas sin cambio
-            ])
-
-        # Asegurarse de que los datos sean un DataFrame antes de pasarlos al ColumnTransformer
-        datos_transformados = preprocesador.fit_transform(datos_transformados)
-
-        # Usar el pipeline para hacer la predicción
+        # Realizar la predicción
         prediccion_tiempo = mejor_modelo.predict(datos_transformados)
 
         # Mostrar resultados
@@ -122,16 +113,17 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         col1, col2 = st.columns(2)
 
         with col1:
-            # Mostrar duración del pedido en formato "minutos:segundos"
-            st.metric('Duración Estimada', f'{prediccion_tiempo[0] // 60} minutos {int(prediccion_tiempo[0] % 60)} segundos')
+            st.metric('Duración Estimada', f'{int(prediccion_tiempo[0] // 60)} minutos {int(prediccion_tiempo[0] % 60)} segundos')
 
         with col2:
             st.metric('Repartidores Disponibles', total_onshift_partners)
             st.metric('Pedidos Pendientes', total_outstanding_orders)
 
-        # Mostrar DataFrame de inputs
+        # Mostrar datos de entrada
         st.subheader('Detalles del Pedido')
-        st.dataframe(datos_transformados)
+        st.dataframe(datos)
 
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
+        st.error('Detalles del error para debugging:')
+        st.write(datos_transformados.head())
