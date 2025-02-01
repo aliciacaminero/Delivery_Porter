@@ -26,7 +26,10 @@ div.block-container .stButton>button:hover {
 }
 
 div.block-container .stButton>button:focus {
-    outline: none;
+    background-color: #0041f5;
+    color: white;
+    font-weight: bold;
+    border: 2px solid #0041f5;
 }
 
 /* 🔹 Inputs y select dentro del contenedor */
@@ -67,11 +70,12 @@ div.block-container .stSelectbox select {
 
 /* 🔹 Color del valor numérico del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
-    background-color: transparent !important; /* Asegura que no haya fondo */
+    background: none !important; /* Elimina cualquier fondo */
+    box-shadow: none !important; /* Evita cualquier efecto de botón */
+    border: none !important; /* Elimina cualquier borde */
     color: #0041f5 !important; /* Azul */
     font-weight: bold !important;
     padding: 0 !important;
-    border: none !important;
 }
 
 /* 🔹 Estilo del thumb (punto del slider) */
