@@ -86,7 +86,7 @@ div.block-container .stSlider input[type="range"] {
     width: 100%;               /* Hacer que el slider ocupe todo el contenedor */
     height: 8px;               /* Ajustar altura del slider */
     border-radius: 4px;        /* Bordes redondeados */
-    background-color: #0041f5;  /* Fondo azul */
+    background-color:#0041f5 !important;   /* Fondo azul */
 }
 
 /*punto del slider*/
@@ -99,6 +99,7 @@ div.block-container .st-emotion-cache-1dj3ksd {
 /* Estilos para el slider */
 div[role="slider"][aria-label="Hora del pedido (0-23):"] > div[data-testid="stSliderThumbValue"] {
     color: #0041f5 !important; /* Azul */
+    font-weight: bold !important;
   }
 
 
@@ -115,13 +116,13 @@ div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
 
 /* Estilo para el slider cuando está en hover dentro de block-container */
 div.block-container .stSlider input[type="range"]:hover {
-    background-color: #002a80;  /* Cambiar a un azul más oscuro en hover */
+    background-color: #002a80 !important;  /* Cambiar a un azul más oscuro en hover */
 }
 
 /* Estilo para el slider cuando está en foco dentro de block-container */
 div.block-container .stSlider input[type="range"]:focus {
     outline: none;              /* Eliminar el contorno al hacer foco */
-    background-color: #0041f5;  /* Cambiar a azul más oscuro cuando está en foco */
+    background-color: #0041f5 !important;  /* Cambiar a azul más oscuro cuando está en foco */
 }
 
 /* Estilo para el number input dentro de block-container */
