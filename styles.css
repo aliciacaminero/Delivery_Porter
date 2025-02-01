@@ -1,0 +1,64 @@
+/* 🔹 Estilo para el contenedor principal */
+div.block-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+/* 🔹 Botón principal */
+div.block-container .stButton>button {
+    background-color: #0041f5;
+    color: white;
+    font-weight: normal;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Estilo hover y focus del botón */
+div.block-container .stButton>button:hover {
+    background-color: white;
+    color: #0041f5;
+    font-weight: bold;
+    border: 2px solid #0041f5;
+}
+
+div.block-container .stButton>button:focus {
+    background-color: #0041f5;
+    color: white;
+    font-weight: bold;
+    border: 2px solid #0041f5;
+}
+
+/* 🔹 Inputs y select dentro del contenedor */
+div.block-container .stSelectbox,
+div.block-container .stSlider,
+div.block-container .stNumberInput {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* 🔹 Estilos para títulos */
+div.block-container h1 {
+    color: #0041f5;
+    text-align: center;
+}
+
+div.block-container h2,
+div.block-container h3 {
+    color: #333;
+    text-align: center;
+}
+
+/* 🔹 Estilo para el selectbox */
+div.block-container .stSelectbox select {
+    background-color: #ffffff;
+    color: #0041f5;
+    border-radius: 8px;
+    border: 2px solid #0041f5;
+    padding: 10px;
+}
