@@ -61,16 +61,18 @@ div.block-container h3 {
     text-align: center;
 }
 
-/* Estilos generales para contenedor */
-div.stSelectbox, div.stSlider, div.stNumberInput {
+/* Estilos generales para contenedor dentro de block-container */
+div.block-container div.stSelectbox,
+div.block-container div.stSlider,
+div.block-container div.stNumberInput {
     background-color: #ffffff;  /* Fondo blanco */
     border-radius: 8px;         /* Bordes redondeados */
     border: 2px solid #0041f5;  /* Borde azul */
     padding: 10px;
 }
 
-/* Estilo para el selectbox (selector) */
-.stSelectbox select {
+/* Estilo para el selectbox (selector) dentro de block-container */
+div.block-container .stSelectbox select {
     background-color: #ffffff;
     color: #0041f5;  /* Color de texto azul */
     border-radius: 8px;
@@ -78,17 +80,17 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
     padding: 10px;
 }
 
-/* Estilo para el slider */
-.stSlider input[type="range"] {
+/* Estilo para el slider dentro de block-container */
+div.block-container .stSlider input[type="range"] {
     appearance: none;  /* Eliminar estilo predeterminado */
     width: 100%;               /* Hacer que el slider ocupe todo el contenedor */
     height: 8px;               /* Ajustar altura del slider */
     border-radius: 4px;        /* Bordes redondeados */
-    background-color: #0041f5;  /* Fondo naranja */
+    background-color: #0041f5;  /* Fondo azul */
 }
 
-/* Estilo para el control deslizante (thumb) */
-.stSlider input[type="range"]::-webkit-slider-thumb {
+/* Estilo para el control deslizante (thumb) dentro de block-container */
+div.block-container .stSlider input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;   /* Eliminar estilo predeterminado del thumb */
     appearance: none;            /* Asegurarnos que el estilo predeterminado del thumb no se aplique */
     width: 16px;                 /* Tamaño del control deslizante */
@@ -98,22 +100,22 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
     cursor: pointer;            /* Hacer el cursor de puntero en el thumb */
 }
 
-/* Estilo para el slider cuando está en hover */
-.stSlider input[type="range"]:hover {
+/* Estilo para el slider cuando está en hover dentro de block-container */
+div.block-container .stSlider input[type="range"]:hover {
     background-color: #002a80;  /* Cambiar a un azul más oscuro en hover */
 }
 
-/* Estilo para el slider cuando está en foco */
-.stSlider input[type="range"]:focus {
+/* Estilo para el slider cuando está en foco dentro de block-container */
+div.block-container .stSlider input[type="range"]:focus {
     outline: none;              /* Eliminar el contorno al hacer foco */
     background-color: #002a80;  /* Cambiar a azul más oscuro cuando está en foco */
 }
 
-/* Estilo para el number input */
-.stNumberInput input {
+/* Estilo para el number input dentro de block-container */
+div.block-container .stNumberInput input {
     background-color: #ffffff; /* Fondo blanco */
     color: #0041f5;            /* Color del texto en azul */
-    border: black;              /* Eliminar borde */
+    border: none;              /* Eliminar borde */
     border-radius: 8px;        /* Bordes redondeados */
     padding: 8px;
 }
