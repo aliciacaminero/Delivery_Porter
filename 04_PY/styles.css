@@ -61,15 +61,6 @@ div.block-container h3 {
     text-align: center;
 }
 
-/* Estilo para los selectores (selectbox) */
-/*.stSelectbox, .stSlider, .stNumberInput {
-    background-color: #ffffff;
-    border-radius: 8px;
-    border: 2px solid #0041f5;  /* Borde azul */
-    /*color: #0041f5;  /* Color de texto */
-    /*padding: 10px;
-/*}
-
 /* Estilos generales para contenedor */
 div.stSelectbox, div.stSlider, div.stNumberInput {
     background-color: #ffffff;  /* Fondo blanco */
@@ -89,9 +80,11 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
 
 /* Estilo para el slider */
 .stSlider input[type="range"] {
-    background-color: #0041f5;  /* Cambiar fondo del slider a naranja */
+    -webkit-appearance: none;  /* Eliminar estilo predeterminado */
+    width: 100%;               /* Hacer que el slider ocupe todo el contenedor */
     height: 8px;               /* Ajustar altura del slider */
-    border-radius: 4px;        /* Bordes redondeados en el slider */
+    border-radius: 4px;        /* Bordes redondeados */
+    background-color: orange;  /* Fondo naranja */
 }
 
 .stSlider input[type="range"]:focus {
@@ -99,11 +92,16 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
     color: #0041f5;
 }
 
+/* Estilo para el slider cuando está en hover (deslizando el mouse sobre él) */
+.stSlider input[type="range"]:hover {
+    background-color: #ff6600;  /* Cambiar a un naranja más oscuro en hover */
+}
+
 /* Estilo para el number input */
 .stNumberInput input {
     background-color: #ffffff; /* Fondo blanco */
     color: #0041f5;            /* Color del texto en azul */
-    border: none; /* Borde azul */
+    border: none;              /* Eliminar borde */
     border-radius: 8px;        /* Bordes redondeados */
     padding: 8px;
 }
