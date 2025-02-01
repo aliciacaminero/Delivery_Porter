@@ -16,7 +16,7 @@ if response_tiempo_entrega.status_code == 200:
     try:
         # Cargar el modelo entrenado (pipeline completo)
         mejor_modelo = joblib.load(BytesIO(response_tiempo_entrega.content))
-        st.success('Modelo de tiempo de entrega cargado correctamente.')
+        #st.success('Modelo de tiempo de entrega cargado correctamente.')
     except Exception as e:
         st.error(f'Error al cargar el modelo de tiempo de entrega: {e}')
 else:
@@ -108,7 +108,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         prediccion_tiempo = mejor_modelo.predict(datos_transformados)
 
         # Mostrar resultados
-        st.subheader('Resultados de la Predicción')
+        st.subheader('Tiempo de Entrega Estimado')
 
         # Convertir el tiempo de entrega a minutos
         total_minutos = int(prediccion_tiempo[0])
