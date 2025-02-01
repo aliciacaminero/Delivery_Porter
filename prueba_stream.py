@@ -89,7 +89,7 @@ with st.container():
         total_outstanding_orders = st.number_input('Pedidos Pendientes', min_value=0, max_value=100, value=20)
 
 # Botón de predicción en la barra lateral
-if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
+if st.sidebar.button('Tiempo de Entrega Estimado'):
     try:
         # Crear DataFrame de entrada
         datos = pd.DataFrame([{
