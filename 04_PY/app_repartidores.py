@@ -70,7 +70,7 @@ st.title("Predicción de Repartidores")
 st.write("Esta aplicación predice el número de repartidores necesarios según el tipo de restaurante, la hora del pedido y los pedidos pendientes.")
 
 # Inputs de usuario
-order_hour = st.slider("Hora del pedido (0-23):", min_value=0, max_value=23)
+order_hour = st.slider("Hora del pedido:", min_value=0, max_value=23)
 grouped_category = st.selectbox("Selecciona el tipo de restaurante:",
                                ["American", "Asian", "Beverages", "Desserts", "European", "Fast Food",
                                 "Healthy", "Indian", "Italian", "Latin", "Mediterranean", "Mexican", "Other"])
