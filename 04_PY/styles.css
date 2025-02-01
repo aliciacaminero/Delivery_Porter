@@ -95,9 +95,11 @@ div.block-container .st-emotion-cache-1dj3ksd {
     border: none !important; /* Elimina el borde rojo */
   }
 
-div.block-container .st-emotion-cache-1373cj4 {
-   color: #0041f5 !important; /* Azul */
-}
+  div.block-container div[data-testid="stSlider"] > div[role="slider"] > div[data-testid="stSliderThumbValue"] {
+    color: #0041f5 !important;
+  }
+
+
 /* Estilo para el control deslizante (thumb) dentro de block-container */
 div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;   /* Eliminar estilo predeterminado del thumb */
