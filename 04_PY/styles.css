@@ -103,7 +103,7 @@ div[role="slider"][aria-label="Hora del pedido (0-23):"] > div[data-testid="stSl
 
   div.stSlider > div[data-baseweb="slider"] > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 0%), rgba(151, 166, 195, 0.25) var(--NB, 0%) , rgba(151, 166, 195, 0.25) 100%);
-    background-size: var(--NB, 0%) 100%; /* Tamaño del degradado dinámico */
+    /*background-size: var(--NB, 0%) 100%; /* Tamaño del degradado dinámico */
     background-repeat: no-repeat; /* Evitar que el degradado se repita */
   }
 
