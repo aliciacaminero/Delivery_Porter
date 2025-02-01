@@ -60,12 +60,6 @@ div.block-container .stSelectbox select {
     padding: 10px;
 }
 
-/* 🔹 Eliminar bordes naranjas del selectbox al hacer focus */
-div.block-container .stSelectbox:focus-within {
-    border-color: #0041f5 !important;
-    box-shadow: 0 0 0 1px #0041f5 !important;
-}
-
 /* 🔹 Estilos para el slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
