@@ -13,8 +13,6 @@ st.set_page_config(
     layout="centered"
 )
 
-slider_value = st.slider("Slider thumb", 0, 100, key="Slider thumb", class_name="slider-personalizado")
-
 # Cargar el archivo CSS externo
 def load_css(file_name):
     with open(file_name, "r") as f:

@@ -119,7 +119,3 @@ div.block-container .stNumberInput input {
     border-radius: 8px;        /* Bordes redondeados */
     padding: 8px;
 }
-
-.slider-personalizado > div[role="slider"] > div[aria-label="Slider thumb"] {
-    background-color: #0041f5 !important;
-}
