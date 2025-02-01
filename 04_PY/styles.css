@@ -97,3 +97,12 @@ div.stSelectbox, div.stSlider, div.stNumberInput {
 .stSlider input[type="range"]:focus {
     outline: none;             /* Quitar contorno cuando el slider está en foco */
 }
+
+/* Estilo para el number input */
+.stNumberInput input {
+    background-color: #ffffff; /* Fondo blanco */
+    color: #0041f5;            /* Color del texto en azul */
+    border: 2px solid #0041f5; /* Borde azul */
+    border-radius: 8px;        /* Bordes redondeados */
+    padding: 8px;
+}
