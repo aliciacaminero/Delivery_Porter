@@ -29,7 +29,7 @@ load_css(os.path.abspath("./styles_local.css"))
 
 
 # Agregar una imagen de cabecera
-st.image("04_Imagenes/CABECERA.jpg", use_container_width=True)
+st.image("./04_Imagenes/CABECERA.jpg", use_container_width=True)
 
 # Descargar el archivo del modelo de tiempo de entrega
 response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
