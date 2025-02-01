@@ -66,15 +66,17 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
 }
 
 /* 🔹 Color del valor numérico del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
-    background-color: transparent !important; /* Asegura que no haya fondo */
-    color: #0041f5 !important; /* Azul */
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div,
+div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div span {
+    background-color: transparent !important;  /* Elimina cualquier fondo */
+    color: #0041f5 !important; /* Establece el color azul */
     font-weight: bold !important;
     padding: 0 !important;
     border: none !important;
+    box-shadow: none !important; /* Evita cualquier sombra de fondo */
 }
 
-/* 🔹 Estilo del thumb (punto del slider) */
+/* 🔹 Estilo del valor del número */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"] {
     background-color: #0041f5 !important;
     box-shadow: 0px 0px 10px rgba(0, 65, 245, 0.5);
