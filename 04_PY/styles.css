@@ -107,6 +107,7 @@ div[role="slider"][aria-label="Hora del pedido (0-23):"] > div[data-testid="stSl
 }
 
 
+
 /* Estilo para el control deslizante (thumb) dentro de block-container */
 div.block-container .stSlider__thumb input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;   /* Eliminar estilo predeterminado del thumb */
