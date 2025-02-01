@@ -1,71 +1,67 @@
 import pandas as pd
 import numpy as np
-import streamlit as st
 import joblib
 import requests
-from sklearn.preprocessing import LabelEncoder
 from io import BytesIO
+import streamlit as st
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
-# URL del archivo del modelo
-url_modelo = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
+# URL del archivo del modelo de tiempo de entrega
+url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
 
-# Descargar el archivo
-response = requests.get(url_modelo)
-
-# Verificar que la descarga fue exitosa
-if response.status_code == 200:
-    # Cargar el modelo directamente desde el contenido en memoria
+# Descargar el archivo del modelo de tiempo de entrega
+response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
+if response_tiempo_entrega.status_code == 200:
     try:
-        modelo_calculo_repartidores = joblib.load(BytesIO(response.content))
-        st.success('Modelo cargado correctamente.')
+        # Cargar el modelo entrenado (pipeline completo)
+        mejor_modelo = joblib.load(BytesIO(response_tiempo_entrega.content))
+        st.success('Modelo de tiempo de entrega cargado correctamente.')
     except Exception as e:
-        st.error(f'Error al cargar el modelo: {e}')
+        st.error(f'Error al cargar el modelo de tiempo de entrega: {e}')
 else:
-    st.error('No se pudo cargar el modelo desde la URL proporcionada.')
+    st.error('No se pudo cargar el modelo de tiempo de entrega desde la URL proporcionada.')
 
-# Cargar modelos
-modelo_tiempo_entrega = joblib.load('03_PKL/m_tiempo_pedido_normal.pkl')
+# Diccionarios de mapeo
+category_map = {
+    'Italian': 'Italiana',
+    'Mexican': 'Mexicana', 
+    'Fast Food': 'Comida Rápida',
+    'American': 'Americana',
+    'Asian': 'Asiática',
+    'Mediterranean': 'Mediterránea',
+    'Indian': 'India',
+    'European': 'Europea',
+    'Healthy': 'Saludable',
+    'Drinks': 'Bebidas',
+    'Other': 'Otros',
+    'Desserts': 'Postres'
+}
 
-# Función para transformar los datos de entrada
+day_map = {
+    'Monday': 'Lunes',
+    'Tuesday': 'Martes',
+    'Wednesday': 'Miércoles',
+    'Thursday': 'Jueves',
+    'Friday': 'Viernes',
+    'Saturday': 'Sábado',
+    'Sunday': 'Domingo'
+}
+
+# Mapeo inverso para convertir de español a inglés
+reverse_category_map = {v: k for k, v in category_map.items()}
+reverse_day_map = {v: k for k, v in day_map.items()}
+
 def transformar_datos(datos):
-    # Codificación de 'store_primary_category' con LabelEncoder
-    encoder_category = LabelEncoder()
-    datos['store_primary_category_encoded'] = encoder_category.fit_transform(datos['store_primary_category'])
+    # Convertir categorías de español a inglés para el modelo
+    datos['grouped_category'] = datos['grouped_category'].map(reverse_category_map)
+    datos['order_day'] = datos['order_day'].map(reverse_day_map)
     
-    # Codificación de 'order_day' con LabelEncoder
-    encoder_day = LabelEncoder()
-    datos['order_day_encoded'] = encoder_day.fit_transform(datos['order_day'])
-
-    # Crear 'is_high_duration' (por ejemplo, si la hora del pedido es mayor a un umbral)
-    datos['is_high_duration'] = datos['order_hour'] > 18  # Ejemplo simple
-
-    # Crear 'log_delivery_duration' y 'delivery_duration' (ejemplo ficticio)
-    # Supongamos que delivery_duration se calcula de alguna manera, como la duración del pedido
-    datos['delivery_duration'] = datos['order_hour'] + np.random.randint(10, 30, size=len(datos))  # Ficticio
-    datos['log_delivery_duration'] = np.log(datos['delivery_duration'])  # Logaritmo de la duración
-
-    # Cálculo de partner_density (densidad de repartidores)
-    datos['partner_density'] = datos['total_onshift_partners'] / (datos['total_outstanding_orders'] + 1)
-
-    # Cálculo de subtotal (puedes modificar esta fórmula según el valor real de los productos)
-    datos['subtotal'] = np.random.uniform(10, 100, size=len(datos))  # Asume un valor aleatorio por ahora
-
-    # Crear otras características faltantes necesarias
-    datos['order_period_encoded'] = datos['order_hour'] // 6  # Ficticio, ajusta según tu caso
-    datos['max_item_price'] = np.random.uniform(10, 100, size=len(datos))  # Ficticio
-    datos['num_distinct_items'] = 3  # Solo para ilustración
-
-    # Asegurarse de que los datos tengan las columnas correctas y en el orden correcto
-    expected_columns = [
-        'log_delivery_duration', 'is_high_duration', 'total_outstanding_orders',
-        'subtotal', 'order_period_encoded', 'num_distinct_items', 'max_item_price', 'total_busy_partners',
-        'order_hour', 'partner_density'
-    ]
-
-    # Asegurarse de que el DataFrame tenga las columnas correctas en el orden adecuado
-    datos = datos[expected_columns]
-
-    return datos
+    # Asegurarse de que todas las columnas necesarias estén presentes
+    columnas_numericas = ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders']
+    columnas_categoricas = ['grouped_category', 'order_day']
+    
+    return datos[columnas_numericas + columnas_categoricas]
 
 # Título de la app
 st.title('Predicción de Tiempo de Entrega 🚚')
@@ -76,7 +72,7 @@ with st.container():
 
     with col1:
         store_primary_category = st.selectbox('Categoría de Tienda', [
-            'Italiana', 'Mexicana', 'Fast Food', 'Americana', 'Asiática', 
+            'Italiana', 'Mexicana', 'Comida Rápida', 'Americana', 'Asiática',
             'Mediterránea', 'India', 'Europea', 'Saludable', 'Bebidas',
             'Otros', 'Postres'
         ])
@@ -97,7 +93,7 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
     try:
         # Crear DataFrame de entrada
         datos = pd.DataFrame([{
-            'store_primary_category': store_primary_category,
+            'grouped_category': store_primary_category,
             'total_onshift_partners': total_onshift_partners,
             'total_busy_partners': total_busy_partners,
             'total_outstanding_orders': total_outstanding_orders,
@@ -105,14 +101,11 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'order_hour': order_hour
         }])
 
-        # Transformar los datos de entrada para que coincidan con lo que espera el modelo
+        # Transformar los datos
         datos_transformados = transformar_datos(datos)
 
-        # Realizar predicción de tiempo de entrega
-        prediccion_tiempo = modelo_tiempo_entrega.predict(datos_transformados)
-
-        # Realizar predicción de repartidores
-        prediccion_repartidores = modelo_calculo_repartidores.predict(datos_transformados)
+        # Realizar la predicción
+        prediccion_tiempo = mejor_modelo.predict(datos_transformados)
 
         # Mostrar resultados
         st.subheader('Resultados de la Predicción')
@@ -120,23 +113,17 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         col1, col2 = st.columns(2)
 
         with col1:
-            st.metric('Duración Estimada', f'{prediccion_tiempo[0]:.2f} minutos')
-            st.metric('Categoría de Tienda', store_primary_category)
-            st.metric('Repartidores Estimados', f'{prediccion_repartidores[0]:.0f}')
+            st.metric('Duración Estimada', f'{int(prediccion_tiempo[0] // 60)} minutos {int(prediccion_tiempo[0] % 60)} segundos')
 
         with col2:
             st.metric('Repartidores Disponibles', total_onshift_partners)
             st.metric('Pedidos Pendientes', total_outstanding_orders)
 
-        # Mostrar DataFrame de inputs
+        # Mostrar datos de entrada
         st.subheader('Detalles del Pedido')
-        st.dataframe(datos_transformados)
+        st.dataframe(datos)
 
-        # Gráfico de distribución simulado
-        st.subheader('Distribución de Tiempos de Entrega')
-        st.bar_chart(pd.DataFrame({
-            'Tiempo de Entrega': np.random.normal(prediccion_tiempo[0], 5, 100)
-        }))
-        
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
+        st.error('Detalles del error para debugging:')
+        st.write(datos_transformados.head())
