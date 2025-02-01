@@ -9,8 +9,8 @@ from sklearn.compose import ColumnTransformer
 import sklearn
 import pickle
 
-# Configuración de la página
-st.set_page_config(page_title="Predicción de Tiempo de Entrega", page_icon="🛵", layout="centered")
+# Mostrar la versión de scikit-learn
+st.sidebar.write(f"Versión de scikit-learn: {sklearn.__version__}")
 
 # URL del archivo del modelo de tiempo de entrega
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
@@ -72,8 +72,16 @@ def preparar_caracteristicas(datos):
     datos['grouped_category'] = datos['grouped_category'].map(reverse_category_map)
     datos['order_day'] = datos['order_day'].map(reverse_day_map)
     
-    # Crear el codificador one-hot para las variables categóricas
-    cat_encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
+    try:
+        # Intentar con sparse_output (versiones más recientes de scikit-learn)
+        cat_encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+    except TypeError:
+        try:
+            # Intentar sin especificar sparse (versiones intermedias)
+            cat_encoder = OneHotEncoder(handle_unknown='ignore')
+        except:
+            # Último recurso: versión más básica
+            cat_encoder = OneHotEncoder()
     
     # Separar características categóricas y numéricas
     cat_features = ['grouped_category', 'order_day']
@@ -82,14 +90,23 @@ def preparar_caracteristicas(datos):
     # Codificar variables categóricas
     cat_encoded = cat_encoder.fit_transform(datos[cat_features])
     
+    # Si la salida es sparse, convertirla a densa
+    if isinstance(cat_encoded, np.ndarray):
+        cat_encoded_dense = cat_encoded
+    else:
+        cat_encoded_dense = cat_encoded.toarray()
+    
     # Obtener nombres de características codificadas
-    cat_feature_names = []
-    for i, feature in enumerate(cat_features):
-        feature_names = cat_encoder.get_feature_names_out([feature])
-        cat_feature_names.extend(feature_names)
+    try:
+        cat_feature_names = cat_encoder.get_feature_names_out(cat_features)
+    except AttributeError:
+        # Para versiones antiguas de scikit-learn
+        cat_feature_names = [f"{feature}_{i}" for feature, n in zip(cat_features, 
+                           [len(cat_encoder.categories_[i]) for i in range(len(cat_features))])
+                           for i in range(n)]
     
     # Crear DataFrame con características codificadas
-    cat_encoded_df = pd.DataFrame(cat_encoded, columns=cat_feature_names)
+    cat_encoded_df = pd.DataFrame(cat_encoded_dense, columns=cat_feature_names)
     
     # Combinar con características numéricas
     num_df = datos[num_features]
