@@ -11,7 +11,7 @@ div.block-container .stButton>button {
     background-color: #0041f5;
     color: white;
     font-weight: normal;
-    border-radius: 8px; 
+    border-radius: 8px;
     border: none;
     padding: 8px 16px;
     transition: all 0.3s ease-in-out;
@@ -61,9 +61,9 @@ div.block-container .stSelectbox select {
 }
 
 /* 🔹 Estilos para el slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
+/*div.block-container .stSlider > div[data-baseweb="slider"] > div > div {
     background: linear-gradient(to right, #0041f5 0%, #0041f5 var(--NB, 100%), rgba(151, 166, 195, 0.25) var(--NB, 100%), rgba(151, 166, 195, 0.25) 100%) !important;
-}
+}*/
 
 /* 🔹 Color del valor numérico del slider */
 div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div > div {
@@ -81,6 +81,6 @@ div.block-container .stSlider > div[data-baseweb="slider"] > div > div > div[rol
 }
 
 /* 🔹 Ocultar líneas de valores del slider */
-div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
+/*div.block-container .stSlider > div[data-baseweb="slider"] > div[data-testid="stTickBar"] > div {
     background: transparent !important;
-}
+}*/
