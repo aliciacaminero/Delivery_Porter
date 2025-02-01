@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+#import numpy as np
 import joblib
 import requests
 from io import BytesIO
@@ -54,11 +54,11 @@ def transformar_datos(datos):
     # Rellenar los valores NaN en las columnas categóricas con un valor predeterminado
     datos['grouped_category'] = datos['grouped_category'].fillna('Desconocido')
     datos['order_day'] = datos['order_day'].fillna('Desconocido')
-    
+
     # Mapear los valores de 'grouped_category' y 'order_day' a español
     datos['grouped_category'] = datos['grouped_category'].map(category_map).fillna('Desconocido')
     datos['order_day'] = datos['order_day'].map(day_map).fillna('Desconocido')
-    
+
     # Asegurarnos de que las columnas estén presentes para el modelo
     return datos
 
@@ -71,7 +71,7 @@ with st.container():
 
     with col1:
         store_primary_category = st.selectbox('Categoría de Tienda', [
-            'Italiana', 'Mexicana', 'Comida Rápida', 'Americana', 'Asiática', 
+            'Italiana', 'Mexicana', 'Comida Rápida', 'Americana', 'Asiática',
             'Mediterránea', 'India', 'Europea', 'Saludable', 'Bebidas',
             'Otros', 'Postres'
         ])
@@ -132,6 +132,6 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
         # Mostrar DataFrame de inputs
         st.subheader('Detalles del Pedido')
         st.dataframe(datos_transformados)
-        
+
     except Exception as e:
         st.error(f'Error en la predicción: {e}')
