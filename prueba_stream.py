@@ -7,9 +7,10 @@ import streamlit as st
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 import sklearn
+import pickle
 
-# Mostrar la versión de scikit-learn
-st.sidebar.write(f"Versión de scikit-learn: {sklearn.__version__}")
+# Configuración de la página
+st.set_page_config(page_title="Predicción de Tiempo de Entrega", page_icon="🛵", layout="centered")
 
 # URL del archivo del modelo de tiempo de entrega
 url_modelo_tiempo_entrega = 'http://s68-77.furanet.com/ironhack/m_tiempo_pedido_normal.pkl'
@@ -19,16 +20,13 @@ try:
     response_tiempo_entrega = requests.get(url_modelo_tiempo_entrega)
     if response_tiempo_entrega.status_code == 200:
         try:
-            import pickle
-            mejor_modelo = pickle.loads(response_tiempo_entrega.content)
-            st.success('Modelo de tiempo de entrega cargado correctamente usando pickle.')
-        except:
-            try:
-                mejor_modelo = joblib.load(BytesIO(response_tiempo_entrega.content))
-                st.success('Modelo de tiempo de entrega cargado correctamente usando joblib.')
-            except Exception as e:
-                st.error(f'Error al cargar el modelo: {str(e)}')
-                st.stop()
+            # Intentar cargar el modelo directamente como un array numpy
+            modelo_datos = BytesIO(response_tiempo_entrega.content)
+            mejor_modelo = np.load(modelo_datos, allow_pickle=True)
+            st.success('Modelo de tiempo de entrega cargado correctamente.')
+        except Exception as e:
+            st.error(f'Error al cargar el modelo: {str(e)}')
+            st.stop()
     else:
         st.error('No se pudo descargar el modelo de la URL proporcionada.')
         st.stop()
@@ -66,27 +64,40 @@ day_map = {
 reverse_category_map = {v: k for k, v in category_map.items()}
 reverse_day_map = {v: k for k, v in day_map.items()}
 
-def preparar_datos_para_prediccion(datos):
+def preparar_caracteristicas(datos):
     """
-    Prepara los datos para la predicción asegurando el formato correcto.
+    Prepara las características para la predicción.
     """
     # Convertir categorías de español a inglés
     datos['grouped_category'] = datos['grouped_category'].map(reverse_category_map)
     datos['order_day'] = datos['order_day'].map(reverse_day_map)
     
-    # Asegurar el orden de las columnas
-    columnas_deseadas = [
-        'grouped_category', 'order_day', 'order_hour',
-        'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders'
-    ]
+    # Crear el codificador one-hot para las variables categóricas
+    cat_encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
     
-    # Verificar que todas las columnas necesarias estén presentes
-    for col in columnas_deseadas:
-        if col not in datos.columns:
-            st.error(f'Falta la columna: {col}')
-            return None
-            
-    return datos[columnas_deseadas]
+    # Separar características categóricas y numéricas
+    cat_features = ['grouped_category', 'order_day']
+    num_features = ['order_hour', 'total_onshift_partners', 'total_busy_partners', 'total_outstanding_orders']
+    
+    # Codificar variables categóricas
+    cat_encoded = cat_encoder.fit_transform(datos[cat_features])
+    
+    # Obtener nombres de características codificadas
+    cat_feature_names = []
+    for i, feature in enumerate(cat_features):
+        feature_names = cat_encoder.get_feature_names_out([feature])
+        cat_feature_names.extend(feature_names)
+    
+    # Crear DataFrame con características codificadas
+    cat_encoded_df = pd.DataFrame(cat_encoded, columns=cat_feature_names)
+    
+    # Combinar con características numéricas
+    num_df = datos[num_features]
+    
+    # Concatenar todas las características
+    final_features = pd.concat([cat_encoded_df, num_df], axis=1)
+    
+    return final_features.values
 
 # Interfaz de usuario
 st.title('Predicción de Tiempo de Entrega 🚚')
@@ -118,25 +129,20 @@ if st.sidebar.button('Predecir Duración de Entrega del Pedido'):
             'total_outstanding_orders': total_outstanding_orders
         }])
 
-        # Preparar datos
-        datos_preparados = preparar_datos_para_prediccion(datos_entrada)
+        # Preparar características
+        X = preparar_caracteristicas(datos_entrada)
         
-        if datos_preparados is not None:
-            # Realizar predicción
-            try:
-                prediccion_tiempo = mejor_modelo.predict(datos_preparados)
-                
-                # Mostrar resultados
-                st.subheader('Resultados de la Predicción')
-                
-                # Convertir el tiempo a minutos y redondear al minuto más cercano
-                minutos = round(prediccion_tiempo[0] / 60)
-                st.metric('Tiempo Estimado de Entrega', f'{minutos} minutos')
-                
-            except Exception as e:
-                st.error(f'Error en la predicción: {str(e)}')
-                st.write('Datos preparados:')
-                st.write(datos_preparados)
-
+        # Realizar predicción usando el array numpy directamente
+        prediccion_tiempo = mejor_modelo.dot(X.flatten())
+        
+        # Mostrar resultados
+        st.subheader('Resultados de la Predicción')
+        
+        # Convertir el tiempo a minutos y redondear al minuto más cercano
+        minutos = max(1, round(prediccion_tiempo / 60))
+        st.metric('Tiempo Estimado de Entrega', f'{minutos} minutos')
+            
     except Exception as e:
         st.error(f'Error al procesar los datos: {str(e)}')
+        st.write('Detalles del error:')
+        st.write(e)
