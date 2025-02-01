@@ -67,7 +67,7 @@ day_map = {
     'Friday': 'Viernes',
     'Saturday': 'Sábado',
     'Sunday': 'Domingo'
-}
+} 
 
 # Mapeo inverso para convertir de español a inglés
 reverse_category_map = {v: k for k, v in category_map.items()}
